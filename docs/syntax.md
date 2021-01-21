@@ -1,7 +1,8 @@
 ## general overview
 the txt file containing the ~~stuff~~ can be used in the command line arguments or it defaults to `build.txt`
 
-the text isn't case sensitive, so *LANGUAGE* is the same as *language*
+the first arguments aren't case sensitive, so *LANGUAGE* is the same as *language*<br>
+on the other hand the text after the argument is case sensitive if the inputted text is a path or a name
 
 ## choosing the language and version :
 - choosing the language :<br>
