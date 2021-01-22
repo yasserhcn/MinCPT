@@ -1,4 +1,4 @@
-## **this tool is not yet completed it's stils in a very very early stage to be used**
+## **this tool is not yet completed it's still in a very very early stage to be used**
 
 # what is this ?
 this is a minimalist and simple building tool for C++ and C without all the complicated stuff in more advanced building tools<br>
