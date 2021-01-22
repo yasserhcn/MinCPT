@@ -1,3 +1,5 @@
+## **this tool is not yet completed it's stils in a very very early stage to be used**
+
 # what is this ?
 this is a minimalist and simple building tool for C++ and C without all the complicated stuff in more advanced building tools<br>
 this build tool is made to be easy to use and easy to learn
