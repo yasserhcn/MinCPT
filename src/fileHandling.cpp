@@ -1,13 +1,6 @@
 #include "fileHandling.hpp"
 #include "strings.cpp"
 
-// global variable bad, gotta find another way
-struct data
-{
-    uint8_t type;
-    uint8_t value;
-};
-
 
 void getTextFromFile(std::string fileName, std::string *text)
 {
@@ -31,20 +24,64 @@ void parseText(std::string *text)
 {
     uint16_t occurences = 0;
     
-    // find unecessary endline characters and remove them
     int index;
     for (uint16_t i = 0; i < text->length(); i++)
     {
+        // find unecessary endline characters and remove them
         index = getCharIndex(*text, '\n', occurences);
-
         checkNext:
         if( (*text)[index + 1] == '\n'){
             text->erase(index + 1, 1);
             goto checkNext;
         }
 
+        // find spaces and remove them
+        space:
+        index = getCharIndex(*text, ' ', occurences);
+        if((*text)[index] == ' '){
+            text->erase(index, 1);
+            goto space;
+        }
+
         occurences++;
+    }
+}
+
+void lex(std::string *text, std::vector<data> *data)
+{
+    int amountOfLines = 0;
+    int occurence = 0;
+    std::vector<uint16_t> lines;
+    int index = getCharIndex(*text, '\n', occurence);
+    while (index != -1 && index < text->size())
+    {
+        index = getCharIndex(*text, '\n', occurence);
+        lines.push_back(index);
+        amountOfLines++;
+        occurence++;
+    }
+    amountOfLines--;
+    lines.pop_back();
+    std::cout<<amountOfLines<<std::endl;
+    
+    for (int i = 0; i < lines.size(); i++)
+    {
+        std::cout << "line n:" << index << "= ";
+        std::cout << lines[i] << std::endl;
     }
     
 
+    // TODO: a loop that doesn't exit till you reach the end of the string
+
+    // TODO: get a line till you reach an endline character
+
+    // TODO: get the colon character
+
+    // TODO: characters before colons are arguments
+        // TODO: check if the argument exists
+        // TODO: put the argument in the input vector
+
+    // TODO: characters after colon are the parameters
+        // TODO: check if the parameter is valid
+        // TODO: put the parameter in the input vector
 }
