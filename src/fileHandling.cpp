@@ -54,20 +54,47 @@ int checkArgument(int type, std::string text)
     {
         text[i] = tolower(text[i]);
     }
-    std::cout<<text<<std::endl;
+    //std::cout<<text<<std::endl;
 
     if(type == ARGUMENT_TYPE)
     {
-        //if(text == "language")
+        if(text == "language"){
+            return LANGUAGE_ARGUMENT;
+        }else
+        if(text == "version"){
+            return VERSION_ARGUMENT;
+        }
 
     }else if(type == PARAMETER_TYPE)
     {
-
+        if(text.substr(0,3) == "cpp")
+        {
+            if(text.substr(3, 2) == "20"){
+                return VERSION_CPP20;
+            }else
+            if(text.substr(3, 2) == "17"){
+                return VERSION_CPP17;
+            }else
+            if(text.substr(3, 2) == "14"){
+                return VERSION_CPP14;
+            }else
+            if(text.substr(3, 2) == "11"){
+                return VERSION_CPP11;
+            }else
+            if(text.substr(3, 2) == "03"){
+                return VERSION_CPP03;
+            }else
+            if(text.substr(3, 2) == "98"){
+                return VERSION_CPP98;
+            }else{
+                return LANGUAGE_CPP;
+            }
+        }
 
     }
 }
 
-void lex(std::string *text, std::vector<data> *data)
+void lex(std::string *text, std::vector<data> *InputData)
 {
     int amountOfLines = 0;
     int occurence = 0;
@@ -100,27 +127,46 @@ void lex(std::string *text, std::vector<data> *data)
         // TODO: characters before colons are arguments
         std::string argument = currentLine.substr(0, colonIndex);
             // TODO: check if the argument exists
+            // TODO: put the argument in the input vector
             switch (checkArgument(ARGUMENT_TYPE, argument))
             {
             case LANGUAGE_ARGUMENT:
                 std::cout<<"language argument\n";
+                InputData->push_back(data(LANGUAGE_ARGUMENT, 0));
                 break;
             case VERSION_ARGUMENT:
                 std::cout<<"version argument\n";
+                InputData->push_back(data(VERSION_ARGUMENT, 0));
                 break;
             
             default:
                 std::cout<<"invalid argument\n";
                 break;
             }
-            // TODO: put the argument in the input vector
 
         // TODO: characters after colon are the parameters
         std::string parameter = currentLine.substr(colonIndex + 1, getCharIndex(currentLine, '\n') - colonIndex - 1);
             // TODO: check if the parameter is valid
             // TODO: put the parameter in the input vector
+            switch (checkArgument(PARAMETER_TYPE, parameter))
+            {
+            case VERSION_CPP20:
+                std::cout<<"cpp20\n";
+                InputData->at(i).value = VERSION_CPP20;
+                break;
+            case VERSION_CPP17:
+                std::cout<<"cpp17\n";
+                InputData->at(i).value = VERSION_CPP20;
+            
+            case LANGUAGE_CPP:
+                std::cout<<"c++ language\n";
+                InputData->at(i).value = LANGUAGE_CPP;
+            default:
+                std::cout<<"invalid parameter\n";
+                break;
+            }
         
-        std::cout<<"the argument is : " << argument<<std::endl;
-        std::cout<<"the parameter is : "<<parameter<<std::endl;
+        std::cout<<"the argument is : " << (int)(*InputData)[i].type<<std::endl;
+        std::cout<<"the parameter is : "<< (int)(*InputData)[i].value<<std::endl;
     }
 }
