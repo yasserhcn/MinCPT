@@ -86,7 +86,7 @@ int checkArgument(int type, std::string text)
             }else
             if(text.substr(3, 2) == "98"){
                 return VERSION_CPP98;
-            }else{
+            }else if (text.length() == 3){
                 return LANGUAGE_CPP;
             }
         }
@@ -154,13 +154,17 @@ void lex(std::string *text, std::vector<data> *InputData)
                 std::cout<<"cpp20\n";
                 InputData->at(i).value = VERSION_CPP20;
                 break;
+
             case VERSION_CPP17:
                 std::cout<<"cpp17\n";
                 InputData->at(i).value = VERSION_CPP20;
+                break;
             
             case LANGUAGE_CPP:
                 std::cout<<"c++ language\n";
                 InputData->at(i).value = LANGUAGE_CPP;
+                break;
+                
             default:
                 std::cout<<"invalid parameter\n";
                 break;
