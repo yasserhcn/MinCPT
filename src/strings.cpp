@@ -1,7 +1,6 @@
-#pragma once
-#include <string>
+#include "strings.hpp"
 
-int getCharIndex(std::string text, char character, uint16_t occurence = 0)
+int getCharIndex(std::string text, char character, uint16_t occurence)
 {
     uint16_t stringLength = text.length();
     bool found = false;

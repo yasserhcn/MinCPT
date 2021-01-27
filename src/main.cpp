@@ -2,7 +2,7 @@
 #include <string>
 #include <stdlib.h>
 #include "fileHandling.hpp"
-#include "compilers/gccCompile.cpp"
+#include "buildSystem.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -22,9 +22,6 @@ int main(int argc, char *argv[])
 
     std::vector<data> data;
     lex(&text, &data);
-
-    system("gcc main.c -o main2.exe");
-    system("cls");
     //std::cout << text << std::endl;
     
     return 0;
