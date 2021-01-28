@@ -5,3 +5,6 @@ this is a minimalist and simple building tool for C++ and C without all the comp
 this build tool is made to be easy to use and easy to learn
 ## what compilers are supported ?
 - currently the only supported compiler is gcc
+  
+## how to build
+simply use the g++ by writing `g++ src/main.cpp src/fileHandling.cpp src/buildSystem.cpp src/strings.cpp -o build/main.exe -std=c++11`
