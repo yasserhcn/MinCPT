@@ -38,3 +38,8 @@ int checkArgument(int type, std::string text);
 
 // lexer to return the arguments and values
 void lex(std::string *text, std::vector<data> *data);
+
+std::string getCommand(uint16_t type);
+
+// make the command to do the syscall
+void makeCommand(std::vector<data> data, std::string *command);

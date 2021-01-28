@@ -130,3 +130,52 @@ void lex(std::string *text, std::vector<data> *InputData)
         std::cout<<"the parameter is : "<< (int)(*InputData)[i].value<<std::endl;
     }
 }
+
+std::string getCommand(uint16_t type)
+{
+    switch (type)
+    {
+        // versions
+    case VERSION_CPP20:
+        return "-std=c++20";
+        break;
+    case VERSION_CPP17:
+        return "-std=c++17";
+        break;
+    case VERSION_CPP14:
+        return "-std=c++14";
+        break;
+    case VERSION_CPP11:
+        return "-std=c++11";
+        break;
+    case VERSION_CPP03:
+        return "-std=c++03";
+        break;
+    case VERSION_CPP98:
+        return "-std=c++98";
+        break;
+    
+
+    
+    default:
+        break;
+    }
+}
+
+void makeCommand(std::vector<data> data, std::string *command)
+{
+    *command = "";
+    if((data)[0].value == LANGUAGE_CPP)
+    {
+        *command += "g++ ";
+    }else if((data)[0].value == LANGUAGE_C)
+    {
+        *command += "gcc";
+    }
+    
+    for (uint16_t i = 1; i < data.size(); i++)
+    {
+        *command += getCommand((data)[i].value);
+    }
+    
+}

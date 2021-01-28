@@ -23,6 +23,10 @@ int main(int argc, char *argv[])
     std::vector<data> data;
     lex(&text, &data);
     //std::cout << text << std::endl;
+
+    std::string command;
+    makeCommand(data, &command);
+    std::cout<<command<<std::endl;
     
     return 0;
 }
