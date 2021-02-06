@@ -21,3 +21,9 @@ each line needs to have **only one** argument or else there will be a syntax err
     ``` version : CPP17 ```<br>
     for the case of C99 we write :<br>
     ``` version : C99 ```<br>
+
+- specifying the file:<br>
+    to choose the file you need to write the filename including the extension name<br>
+    example:<br>
+    we have a file named ` main.cpp`<br>
+    so we write the following ``` file : main.cpp ```
