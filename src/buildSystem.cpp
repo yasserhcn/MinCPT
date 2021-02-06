@@ -18,10 +18,20 @@ int checkArgument(int type, std::string text)
         }else
         if(text == "version"){
             return VERSION_ARGUMENT;
+        }else
+        if(text == "file"){
+            return FILE_ARGUMENT;
         }
 
     }else if(type == PARAMETER_TYPE)
     {
+        //the parameter is a file
+        // TODO: put this in its own function so different extensions are easy to manage
+        if(text.substr(text.size()-4, 3) == "cpp" || text.substr(text.size()-2, 1) == "c")
+        {
+            return FILE_PARAMETER;
+        }
+        // the parameter is a language thingy
         if(text.substr(0,3) == "cpp")
         {
             if(text.substr(3, 2) == "20"){
@@ -82,8 +92,8 @@ void lex(std::string *text, std::vector<data> *InputData)
 
         // TODO: characters before colons are arguments
         std::string argument = currentLine.substr(0, colonIndex);
-            // TODO: check if the argument exists
-            // TODO: put the argument in the input vector
+            // TODO: check if the argument exists and put it in the input vector
+            // ! CHANGE IT SO IT WOULDN'T USE A SWITCH STATEMENT 
             switch (checkArgument(ARGUMENT_TYPE, argument))
             {
             case LANGUAGE_ARGUMENT:
@@ -93,6 +103,10 @@ void lex(std::string *text, std::vector<data> *InputData)
             case VERSION_ARGUMENT:
                 std::cout<<"version argument\n";
                 InputData->push_back(data(VERSION_ARGUMENT, 0));
+                break;
+            case FILE_ARGUMENT:
+                std::cout<<"file argument\n";
+                InputData->push_back(data(FILE_ARGUMENT, 0));
                 break;
             
             default:

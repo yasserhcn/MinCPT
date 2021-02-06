@@ -11,6 +11,9 @@
 
 #define LANGUAGE_ARGUMENT 30
 #define VERSION_ARGUMENT 31
+#define FILE_ARGUMENT 32
+#define OUTPUT_ARGUMENT 33
+#define EXTRA_ARGUMENTS 34
 
 #define VERSION_PARAMETER 130
 #define VERSION_CPP98 131
@@ -24,7 +27,9 @@
 #define LANGUAGE_C 151
 #define LANGUAGE_CPP 152
 
-// global variable bad, gotta find another way
+#define FILE_PARAMETER 160
+
+// global variable bad, gotta find another way if it exists
 struct data
 {
     data(){}
