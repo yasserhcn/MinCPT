@@ -9,7 +9,6 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
     {
         text[i] = tolower(text[i]);
     }
-    //std::cout<<text<<std::endl;
 
     if(type == ARGUMENT_TYPE)
     {
@@ -27,13 +26,10 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
     {
         //the parameter is a file
         // TODO: put this in its own function so different extensions are easy to manage
-        std::cout << "checking filetype" << std::endl;
         if(text.length() > 3)
             if(text.substr(text.length()-3, 3) == "cpp" || text.substr(text.length()-1, 1) == "c")
             {
                 files->push_back(text);
-                std::cout<<"the text is : "<<text<<std::endl;
-                std::cout << "cpp -> "<<text.substr(text.size()-3, 3)<<"c -> "<< text.substr(text.size()-1, 1)<< std::endl;
                 return FILE_PARAMETER;
             }
         // the parameter is a language thingy
@@ -102,15 +98,12 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
             switch (checkArgument(ARGUMENT_TYPE, argument, files))
             {
             case LANGUAGE_ARGUMENT:
-                std::cout<<"language argument\n";
                 InputData->push_back(data(LANGUAGE_ARGUMENT, 0));
                 break;
             case VERSION_ARGUMENT:
-                std::cout<<"version argument\n";
                 InputData->push_back(data(VERSION_ARGUMENT, 0));
                 break;
             case FILE_ARGUMENT:
-                std::cout<<"file argument\n";
                 InputData->push_back(data(FILE_ARGUMENT, 0));
                 break;
             
@@ -126,12 +119,10 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
             switch (checkArgument(PARAMETER_TYPE, parameter, files))
             {
             case VERSION_CPP20:
-                std::cout<<"cpp20\n";
                 InputData->at(i).value = VERSION_CPP20;
                 break;
 
             case VERSION_CPP17:
-                std::cout<<"cpp17\n";
                 InputData->at(i).value = VERSION_CPP17;
                 break;
 
@@ -152,12 +143,10 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
                 break;
             
             case LANGUAGE_CPP:
-                std::cout<<"c++ language\n";
                 InputData->at(i).value = LANGUAGE_CPP;
                 break;
 
             case FILE_PARAMETER:
-                std::cout<<"file thingy\n";
                 InputData->at(i).value = FILE_PARAMETER;
                 break;
 
@@ -165,9 +154,6 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
                 std::cout<<"invalid parameter\n";
                 break;
             }
-        
-        std::cout<<"the argument is : " << (int)(*InputData)[i].type<<std::endl;
-        std::cout<<"the parameter is : "<< (int)(*InputData)[i].value<<std::endl;
     }
 }
 
