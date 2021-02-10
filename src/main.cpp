@@ -23,11 +23,9 @@ int main(int argc, char *argv[])
     std::vector<data> data;
     std::vector<std::string> files;
     lex(&text, &data, &files);
-    //std::cout << text << std::endl;
 
     std::string command;
     makeCommand(data, &command, &files);
-    std::cout<<command<<std::endl;
     
     return 0;
 }
