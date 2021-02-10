@@ -2,7 +2,7 @@
 #include "strings.hpp"
 
 
-int checkArgument(int type, std::string text)
+int checkArgument(int type, std::string text, std::vector<std::string> *files)
 {
     // convert the text to lowercase
     for (uint16_t i = 0; i < text.length(); i++)
@@ -27,10 +27,15 @@ int checkArgument(int type, std::string text)
     {
         //the parameter is a file
         // TODO: put this in its own function so different extensions are easy to manage
-        if(text.substr(text.size()-4, 3) == "cpp" || text.substr(text.size()-2, 1) == "c")
-        {
-            return FILE_PARAMETER;
-        }
+        std::cout << "checking filetype" << std::endl;
+        if(text.length() > 3)
+            if(text.substr(text.length()-3, 3) == "cpp" || text.substr(text.length()-1, 1) == "c")
+            {
+                files->push_back(text);
+                std::cout<<"the text is : "<<text<<std::endl;
+                std::cout << "cpp -> "<<text.substr(text.size()-3, 3)<<"c -> "<< text.substr(text.size()-1, 1)<< std::endl;
+                return FILE_PARAMETER;
+            }
         // the parameter is a language thingy
         if(text.substr(0,3) == "cpp")
         {
@@ -60,7 +65,7 @@ int checkArgument(int type, std::string text)
 }
 
 
-void lex(std::string *text, std::vector<data> *InputData)
+void lex(std::string *text, std::vector<data> *InputData, std::vector<std::string> *files)
 {
     int amountOfLines = 0;
     int occurence = 0;
@@ -94,7 +99,7 @@ void lex(std::string *text, std::vector<data> *InputData)
         std::string argument = currentLine.substr(0, colonIndex);
             // TODO: check if the argument exists and put it in the input vector
             // ! CHANGE IT SO IT WOULDN'T USE A SWITCH STATEMENT 
-            switch (checkArgument(ARGUMENT_TYPE, argument))
+            switch (checkArgument(ARGUMENT_TYPE, argument, files))
             {
             case LANGUAGE_ARGUMENT:
                 std::cout<<"language argument\n";
@@ -118,7 +123,7 @@ void lex(std::string *text, std::vector<data> *InputData)
         std::string parameter = currentLine.substr(colonIndex + 1, getCharIndex(currentLine, '\n') - colonIndex - 1);
             // TODO: check if the parameter is valid
             // TODO: put the parameter in the input vector
-            switch (checkArgument(PARAMETER_TYPE, parameter))
+            switch (checkArgument(PARAMETER_TYPE, parameter, files))
             {
             case VERSION_CPP20:
                 std::cout<<"cpp20\n";
@@ -134,7 +139,12 @@ void lex(std::string *text, std::vector<data> *InputData)
                 std::cout<<"c++ language\n";
                 InputData->at(i).value = LANGUAGE_CPP;
                 break;
-                
+
+            case FILE_PARAMETER:
+                std::cout<<"file thingy\n";
+                InputData->at(i).value = FILE_PARAMETER;
+                break;
+
             default:
                 std::cout<<"invalid parameter\n";
                 break;
@@ -176,7 +186,7 @@ std::string getCommand(uint16_t type)
     }
 }
 
-void makeCommand(std::vector<data> data, std::string *command)
+void makeCommand(std::vector<data> data, std::string *command, std::vector<std::string> *files)
 {
     *command = "";
     if((data)[0].value == LANGUAGE_CPP)
