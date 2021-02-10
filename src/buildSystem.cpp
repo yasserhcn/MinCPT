@@ -132,7 +132,23 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
 
             case VERSION_CPP17:
                 std::cout<<"cpp17\n";
-                InputData->at(i).value = VERSION_CPP20;
+                InputData->at(i).value = VERSION_CPP17;
+                break;
+
+            case VERSION_CPP14:
+                InputData->at(i).value = VERSION_CPP14;
+                break;
+            
+            case VERSION_CPP11:
+                InputData->at(i).value = VERSION_CPP11;
+                break;
+            
+            case VERSION_CPP03:
+                InputData->at(i).value = VERSION_CPP03;
+                break;
+
+            case VERSION_CPP98:
+                InputData->at(i).value = VERSION_CPP98;
                 break;
             
             case LANGUAGE_CPP:
@@ -155,7 +171,7 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
     }
 }
 
-std::string getCommand(uint16_t type)
+std::string getCommand(uint16_t type, std::vector<std::string> *files, int index)
 {
     switch (type)
     {
@@ -179,6 +195,9 @@ std::string getCommand(uint16_t type)
         return "-std=c++98";
         break;
     
+    case FILE_PARAMETER:
+        return (*files)[index];
+        break;
 
     
     default:
@@ -197,9 +216,14 @@ void makeCommand(std::vector<data> data, std::string *command, std::vector<std::
         *command += "gcc";
     }
     
+    int fileIndex = 0;
     for (uint16_t i = 1; i < data.size(); i++)
     {
-        *command += getCommand((data)[i].value);
+        *command += getCommand((data)[i].value, files, fileIndex);
+        *command += " ";
+        if((data)[i].value == FILE_PARAMETER){
+            fileIndex++;
+        }
     }
     
 }
