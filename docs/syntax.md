@@ -27,3 +27,6 @@ each line needs to have **only one** argument or else there will be a syntax err
     example:<br>
     we have a file named ` main.cpp`<br>
     so we write the following ``` file : main.cpp ```
+
+## good practices
+- it's best to specify the language first, then the files, and then after that the language version 
