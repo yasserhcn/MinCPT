@@ -27,7 +27,7 @@
 #define LANGUAGE_C 151
 #define LANGUAGE_CPP 152
 
-#define FILE_PARAMETER 160
+#define FILE_PARAMETER 500
 
 // global variable bad, gotta find another way if it exists
 struct data
