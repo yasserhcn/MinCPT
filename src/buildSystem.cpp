@@ -26,12 +26,21 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
     {
         //the parameter is a file
         // TODO: put this in its own function so different extensions are easy to manage
-        if(text.length() > 3)
+        if(text.length() > 3){
             if(text.substr(text.length()-3, 3) == "cpp" || text.substr(text.length()-1, 1) == "c")
             {
                 files->push_back(text);
                 return FILE_PARAMETER;
+            }}
+        // ! CHANGE THE WAY IT'S CHECK FOR A MORE ROBUST WAY
+        if(text.length() > 6){
+            if(text.substr(text.length()-7, 7) == "include")
+            {
+                files->push_back(text);
+                return FILE_PARAMETER;
             }
+        }
+
         // the parameter is a language thingy
         if(text.substr(0,3) == "cpp")
         {
@@ -149,6 +158,10 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
             case FILE_PARAMETER:
                 InputData->at(i).value = FILE_PARAMETER;
                 break;
+            
+            case INCLUDE_PARAMETER:
+                InputData->at(i).value = INCLUDE_PARAMETER;
+                break;
 
             default:
                 std::cout<<"invalid parameter\n";
@@ -184,6 +197,10 @@ std::string getCommand(uint16_t type, std::vector<std::string> *files, int index
     case FILE_PARAMETER:
         return (*files)[index];
         break;
+    
+    case INCLUDE_PARAMETER:
+        return (*files)[index];
+        break;
 
     
     default:
@@ -207,7 +224,7 @@ void makeCommand(std::vector<data> data, std::string *command, std::vector<std::
     {
         *command += getCommand((data)[i].value, files, fileIndex);
         *command += " ";
-        if((data)[i].value == FILE_PARAMETER){
+        if((data)[i].value == FILE_PARAMETER || (data)[i].value == INCLUDE_PARAMETER){
             fileIndex++;
         }
     }
