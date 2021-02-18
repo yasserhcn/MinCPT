@@ -28,5 +28,11 @@ each line needs to have **only one** argument or else there will be a syntax err
     we have a file named ` main.cpp`<br>
     so we write the following ``` file : main.cpp ```
 
+- include directories : <br>
+    to set an include directory for the compiler to search through we use the word `include` followed by the path of the include folder <br>
+    example:<br>
+    if we have the following path `D:\programming thing\project\include` <br>
+    we'll have the following syntax : ```include : D:\programming thing\project\include```
+
 ## good practices
 - it's best to specify the language first, then the files, and then after that the language version 
