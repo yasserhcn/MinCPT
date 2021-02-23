@@ -34,5 +34,11 @@ each line needs to have **only one** argument or else there will be a syntax err
     if we have the following path `D:\programming thing\project\include` <br>
     we'll have the following syntax : ```include : D:\programming thing\project\include```
 
+## running the built file
+assuming that the built file is `CPT.exe`, you should open command prompt or the terminal and run the executable with the arguments that you want<br>
+the arguments are :<br>
+- `--build` : builds the project right away
+- `--no-build` : doesn't build the file
+
 ## good practices
 - it's best to specify the language first, then the files, and then after that the language version 
