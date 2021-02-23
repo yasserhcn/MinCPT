@@ -10,7 +10,6 @@ int main(int argc, char *argv[])
     std::string arguments;
     bool shouldBuild = true;
 
-    std::cout<<argc;
     if(argc >= 2)
     {
         fileName = argv[1];
