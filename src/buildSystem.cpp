@@ -20,6 +20,9 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
         }else
         if(text == "file"){
             return FILE_ARGUMENT;
+        }else
+        if(text == "include"){
+            return INCLUDE_ARGUMENT;
         }
 
     }else if(type == PARAMETER_TYPE)
@@ -32,12 +35,12 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
                 files->push_back(text);
                 return FILE_PARAMETER;
             }}
-        // ! CHANGE THE WAY IT'S CHECK FOR A MORE ROBUST WAY
+        // ! CHANGE THE WAY IT'S CHECKED FOR A MORE ROBUST WAY
         if(text.length() > 6){
             if(text.substr(text.length()-7, 7) == "include")
             {
                 files->push_back(text);
-                return FILE_PARAMETER;
+                return INCLUDE_PARAMETER;
             }
         }
 
@@ -114,6 +117,9 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
                 break;
             case FILE_ARGUMENT:
                 InputData->push_back(data(FILE_ARGUMENT, 0));
+                break;
+            case INCLUDE_ARGUMENT:
+                InputData->push_back(data(INCLUDE_ARGUMENT, 0));
                 break;
             
             default:
@@ -199,7 +205,7 @@ std::string getCommand(uint16_t type, std::vector<std::string> *files, int index
         break;
     
     case INCLUDE_PARAMETER:
-        return (*files)[index];
+        return ("-I" + (*files)[index]);
         break;
 
     
