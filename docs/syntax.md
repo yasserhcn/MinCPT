@@ -39,6 +39,10 @@ assuming that the built file is `CPT.exe`, you should open command prompt or the
 the arguments are :<br>
 - `--build` : builds the project right away
 - `--no-build` : doesn't build the file
+  
+**important notes**:<br>
+- you *must* specify the filename as the first argument when using other arguments 
+- the program automatically builds the file if `--no-build` or `--build` isn't used
 
 ## good practices
 - it's best to specify the language first, then the files, and then after that the language version 
