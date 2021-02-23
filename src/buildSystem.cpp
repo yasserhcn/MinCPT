@@ -28,7 +28,7 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
     }else if(type == PARAMETER_TYPE)
     {
         //the parameter is a file
-        // TODO: put this in its own function so different extensions are easy to manage
+        // put this in its own function so different extensions are easy to manage
         if(text.length() > 3){
             if(text.substr(text.length()-3, 3) == "cpp" || text.substr(text.length()-1, 1) == "c")
             {
@@ -89,13 +89,13 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
     amountOfLines--;
     lines.pop_back();
     
-    // TODO: a loop that doesn't exit till you reach the end of the string
+    // a loop that doesn't exit till you reach the end of the string
     for (uint16_t i = 0; i < amountOfLines; i++)
     {
-        // TODO: get a line till you reach an endline character
+        // get a line till you reach an endline character
         std::string currentLine = text->substr(i == 0 ? 0 : lines[i - 1] + 1, lines[i] - lines[i - 1]);
         
-        // TODO: get the colon character
+        // get the colon character
         int colonIndex = getCharIndex(currentLine, ':');
         if(colonIndex == -1)
         {
@@ -103,9 +103,9 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
             continue;
         }
 
-        // TODO: characters before colons are arguments
+        // characters before colons are arguments
         std::string argument = currentLine.substr(0, colonIndex);
-            // TODO: check if the argument exists and put it in the input vector
+            // check if the argument exists and put it in the input vector
             // ! CHANGE IT SO IT WOULDN'T USE A SWITCH STATEMENT 
             switch (checkArgument(ARGUMENT_TYPE, argument, files))
             {
@@ -127,10 +127,10 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
                 break;
             }
 
-        // TODO: characters after colon are the parameters
+        // characters after colon are the parameters
         std::string parameter = currentLine.substr(colonIndex + 1, getCharIndex(currentLine, '\n') - colonIndex - 1);
-            // TODO: check if the parameter is valid
-            // TODO: put the parameter in the input vector
+            // check if the parameter is valid
+            // put the parameter in the input vector
             switch (checkArgument(PARAMETER_TYPE, parameter, files))
             {
             case VERSION_CPP20:
