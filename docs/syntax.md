@@ -48,8 +48,12 @@ the arguments are :<br>
 - `--no-build` : doesn't build the file
   
 **important notes**:<br>
-- you *must* specify the filename as the first argument when using other arguments 
+- you *must* specify the filename as the first argument when using other arguments
+- include path *must* end with the folder `include` (temporary)
+- library paths *must* end with the folder `library` (temporary)
 - the program automatically builds the file if `--no-build` or `--build` isn't used
+  
+  (temporary) : means that they're currently required to be used but are planned to be changed
 
 ## good practices
-- it's best to specify the language first, then the files, and then after that the language version 
+- it's best to specify the language first, then the files, and then after that the language version
