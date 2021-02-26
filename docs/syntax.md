@@ -39,7 +39,7 @@ each line needs to have **only one** argument or else there will be a syntax err
     example:<br>
     library file that has the name `libcThing.a` <br>
     we'll have the following line `library : cThing` <br>
-    **note** : we don't use the prefix `lib` and the suffix `.a` because gcc automatically adds them when specifying the library file
+    **note** : we don't use the prefix `lib` because gcc automatically add it when specifying the library file but the `.a` prefix is currently necessary
 
 ## running the built file
 assuming that the built file is `CPT.exe`, you should open command prompt or the terminal and run the executable with the arguments that you want<br>
