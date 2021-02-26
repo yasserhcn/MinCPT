@@ -23,10 +23,15 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
         }else
         if(text == "include"){
             return INCLUDE_ARGUMENT;
+        }else
+        if(text == "library"){
+            return LIBRARY_FILE_ARGUMENT;
         }
 
     }else if(type == PARAMETER_TYPE)
     {
+        // TODO: change the function so it knows what the previous argument was
+        // TODO: change the way include paths are detected (should change with the above one)
         //the parameter is a file
         // put this in its own function so different extensions are easy to manage
         if(text.length() > 3){
@@ -41,6 +46,9 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
             {
                 files->push_back(text);
                 return INCLUDE_PARAMETER;
+            }else if(text.substr(text.length()-2, 2) == ".a"){
+                files->push_back(text);
+                return LIBRARY_FILE_PARAMETER;
             }
         }
 
@@ -107,6 +115,7 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
         std::string argument = currentLine.substr(0, colonIndex);
             // check if the argument exists and put it in the input vector
             // ! CHANGE IT SO IT WOULDN'T USE A SWITCH STATEMENT 
+            // TODO: change it so "checkArgument" puts the value directly into the data vector
             switch (checkArgument(ARGUMENT_TYPE, argument, files))
             {
             case LANGUAGE_ARGUMENT:
@@ -121,6 +130,9 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
             case INCLUDE_ARGUMENT:
                 InputData->push_back(data(INCLUDE_ARGUMENT, 0));
                 break;
+            case LIBRARY_FILE_ARGUMENT:
+                InputData->push_back(data(LIBRARY_FILE_ARGUMENT, 0));
+                break;
             
             default:
                 std::cout<<"invalid argument\n";
@@ -131,6 +143,7 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
         std::string parameter = currentLine.substr(colonIndex + 1, getCharIndex(currentLine, '\n') - colonIndex - 1);
             // check if the parameter is valid
             // put the parameter in the input vector
+            // TODO: do the same with this like the previous switch statement
             switch (checkArgument(PARAMETER_TYPE, parameter, files))
             {
             case VERSION_CPP20:
@@ -167,6 +180,10 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
             
             case INCLUDE_PARAMETER:
                 InputData->at(i).value = INCLUDE_PARAMETER;
+                break;
+            
+            case LIBRARY_FILE_PARAMETER:
+                InputData->at(i).value = LIBRARY_FILE_PARAMETER;
                 break;
 
             default:
@@ -207,7 +224,10 @@ std::string getCommand(uint16_t type, std::vector<std::string> *files, int index
     case INCLUDE_PARAMETER:
         return ("-I" + (*files)[index]);
         break;
-
+    
+    case LIBRARY_FILE_PARAMETER:
+        return ("-l" + (*files)[index]);
+        break;
     
     default:
         break;
