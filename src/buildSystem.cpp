@@ -250,7 +250,7 @@ void makeCommand(std::vector<data> data, std::string *command, std::vector<std::
     {
         *command += getCommand((data)[i].value, files, fileIndex);
         *command += " ";
-        if((data)[i].value == FILE_PARAMETER || (data)[i].value == INCLUDE_PARAMETER){
+        if((data)[i].value == FILE_PARAMETER || (data)[i].value == INCLUDE_PARAMETER || (data)[i].value == LIBRARY_FILE_PARAMETER){
             fileIndex++;
         }
     }
