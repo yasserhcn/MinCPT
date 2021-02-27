@@ -31,7 +31,7 @@
 #define LANGUAGE_CPP 152
 #define INCLUDE_PARAMETER 160
 #define LIBRARY_FILE_PARAMETER 170
-#define LIBRARY_PATH_ARGUMENT 180
+#define LIBRARY_PATH_PARAMETER 180
 #define FILE_PARAMETER 200
 
 // global variable bad, gotta find another way if it exists
