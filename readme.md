@@ -11,3 +11,4 @@ simply use the g++ by writing `g++ src/main.cpp src/fileHandling.cpp src/buildSy
 
 ## known bugs
 - names of paths or files that have spaces won't work
+- having an invalid name for a parameter may cause a chain reaction
