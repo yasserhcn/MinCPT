@@ -31,8 +31,15 @@ each line needs to have **only one** argument or else there will be a syntax err
 - include directories :<br>
     to set an include directory for the compiler to search through we use the word `include` followed by the path of the include folder <br>
     example:<br>
-    if we have the following path `D:\programming thing\project\include` <br>
-    we'll have the following syntax : ```include : D:\programming thing\project\include```
+    if we have the following path `C:\programming thing\project\include` <br>
+    we'll have the following syntax : ```include : C:\programming thing\project\include```
+
+- library directory :<br>
+    to specify to directory containing the library files for the compiler to search through we use the word `libdir` followed by the path of the library folder <br>
+    example:<br>
+    if we have the following path ```C:\programming thing\project\library``` <br>
+    we'll have the following text : ``` libdir : C:\programming thing\project\library```
+
 
 - library files :<br>
     to point to the files with the library files you need to specify the `library` argument with the name of the library file<br>
@@ -50,7 +57,7 @@ the arguments are :<br>
 **important notes**:<br>
 - you *must* specify the filename as the first argument when using other arguments
 - include path *must* end with the folder `include` (temporary)
-- library paths *must* end with the folder `library` (temporary)
+- library paths *must* end with the folder `lib` (temporary)
 - the program automatically builds the file if `--no-build` or `--build` isn't used
   
   (temporary) : means that they're currently required to be used but are planned to be changed
