@@ -31,8 +31,15 @@ each line needs to have **only one** argument or else there will be a syntax err
 - include directories :<br>
     to set an include directory for the compiler to search through we use the word `include` followed by the path of the include folder <br>
     example:<br>
-    if we have the following path `D:\programming thing\project\include` <br>
-    we'll have the following syntax : ```include : D:\programming thing\project\include```
+    if we have the following path `C:\programming thing\project\include` <br>
+    we'll have the following syntax : ```include : C:\programming thing\project\include```
+
+- library directory :<br>
+    to specify to directory containing the library files for the compiler to search through we use the word `libdir` followed by the path of the library folder <br>
+    example:<br>
+    if we have the following path ```C:\programming thing\project\library``` <br>
+    we'll have the following text : ``` libdir : C:\programming thing\project\library```
+
 
 - library files :<br>
     to point to the files with the library files you need to specify the `library` argument with the name of the library file<br>
