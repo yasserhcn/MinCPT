@@ -49,6 +49,7 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files);
 // lexer to return the arguments and values
 void lex(std::string *text, std::vector<data> *data, std::vector<std::string> *files);
 
+// returns the command at an index using the type
 std::string getCommand(uint16_t type, std::vector<std::string> *files, int index = 0);
 
 // make the command to do the syscall
