@@ -26,6 +26,9 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
         }else
         if(text == "library"){
             return LIBRARY_FILE_ARGUMENT;
+        }else
+        if(text == "libdir"){
+            return LIBRARY_PATH_ARGUMENT;
         }
 
     }else if(type == PARAMETER_TYPE)
@@ -34,21 +37,26 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
         // TODO: change the way include paths are detected (should change with the above one)
         //the parameter is a file
         // put this in its own function so different extensions are easy to manage
-        if(text.length() > 3){
-            if(text.substr(text.length()-3, 3) == "cpp" || text.substr(text.length()-1, 1) == "c")
-            {
-                files->push_back(text);
-                return FILE_PARAMETER;
-            }}
         // ! CHANGE THE WAY IT'S CHECKED FOR A MORE ROBUST WAY
         if(text.length() > 6){
             if(text.substr(text.length()-7, 7) == "include")
             {
                 files->push_back(text);
                 return INCLUDE_PARAMETER;
+            }
+        }
+        if(text.length() > 3){
+            if(text.substr(text.length()-3, 3) == "cpp" || text.substr(text.length()-1, 1) == "c")
+            {
+                files->push_back(text);
+                return FILE_PARAMETER;
             }else if(text.substr(text.length()-2, 2) == ".a"){
                 files->push_back(text);
                 return LIBRARY_FILE_PARAMETER;
+            }else
+            if(text.substr(text.length()-3, 3) == "lib"){
+                files->push_back(text);
+                return LIBRARY_PATH_PARAMETER;
             }
         }
 
@@ -133,6 +141,9 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
             case LIBRARY_FILE_ARGUMENT:
                 InputData->push_back(data(LIBRARY_FILE_ARGUMENT, 0));
                 break;
+            case LIBRARY_PATH_ARGUMENT:
+                InputData->push_back(data(LIBRARY_PATH_ARGUMENT, 0));
+                break;
             
             default:
                 std::cout<<"invalid argument\n";
@@ -185,6 +196,10 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
             case LIBRARY_FILE_PARAMETER:
                 InputData->at(i).value = LIBRARY_FILE_PARAMETER;
                 break;
+            
+            case LIBRARY_PATH_PARAMETER:
+                InputData->at(i).value =  LIBRARY_PATH_PARAMETER;
+                break;
 
             default:
                 std::cout<<"invalid parameter\n";
@@ -228,7 +243,11 @@ std::string getCommand(uint16_t type, std::vector<std::string> *files, int index
     case LIBRARY_FILE_PARAMETER:
         return ("-l" + (*files)[index]);
         break;
-    
+
+    case LIBRARY_PATH_PARAMETER:
+        return ("-L" + (*files)[index]);
+        break;
+
     default:
         break;
     }
