@@ -29,10 +29,13 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
         }else
         if(text == "libdir"){
             return LIBRARY_PATH_ARGUMENT;
+        }else{
+            return NULL;
         }
 
     }else if(type == PARAMETER_TYPE)
     {
+        bool found = false;
         // TODO: change the function so it knows what the previous argument was
         // TODO: change the way include paths are detected (should change with the above one)
         //the parameter is a file
@@ -41,6 +44,7 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
         if(text.length() > 6){
             if(text.substr(text.length()-7, 7) == "include")
             {
+                found = true;
                 files->push_back(text);
                 return INCLUDE_PARAMETER;
             }
@@ -48,13 +52,16 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
         if(text.length() > 3){
             if(text.substr(text.length()-3, 3) == "cpp" || text.substr(text.length()-1, 1) == "c")
             {
+                found = true;
                 files->push_back(text);
                 return FILE_PARAMETER;
             }else if(text.substr(text.length()-2, 2) == ".a"){
+                found = true;
                 files->push_back(text);
                 return LIBRARY_FILE_PARAMETER;
             }else
             if(text.substr(text.length()-3, 3) == "lib"){
+                found = true;
                 files->push_back(text);
                 return LIBRARY_PATH_PARAMETER;
             }
@@ -63,6 +70,7 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
         // the parameter is a language thingy
         if(text.substr(0,3) == "cpp")
         {
+            found = true;
             if(text.substr(3, 2) == "20"){
                 return VERSION_CPP20;
             }else
@@ -83,6 +91,10 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
             }else if (text.length() == 3){
                 return LANGUAGE_CPP;
             }
+        }
+
+        if(!found){
+            return NULL;
         }
 
     }
