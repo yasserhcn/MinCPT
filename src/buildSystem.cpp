@@ -30,7 +30,7 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
         if(text == "libdir"){
             return LIBRARY_PATH_ARGUMENT;
         }else{
-            return NULL;
+            return 0;
         }
 
     }else if(type == PARAMETER_TYPE)
@@ -94,7 +94,7 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
         }
 
         if(!found){
-            return NULL;
+            return 0;
         }
 
     }
@@ -134,88 +134,19 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
         // characters before colons are arguments
         std::string argument = currentLine.substr(0, colonIndex);
             // check if the argument exists and put it in the input vector
-            // ! CHANGE IT SO IT WOULDN'T USE A SWITCH STATEMENT 
-            // TODO: change it so "checkArgument" puts the value directly into the data vector
-            switch (checkArgument(ARGUMENT_TYPE, argument, files))
-            {
-            case LANGUAGE_ARGUMENT:
-                InputData->push_back(data(LANGUAGE_ARGUMENT, 0));
-                break;
-            case VERSION_ARGUMENT:
-                InputData->push_back(data(VERSION_ARGUMENT, 0));
-                break;
-            case FILE_ARGUMENT:
-                InputData->push_back(data(FILE_ARGUMENT, 0));
-                break;
-            case INCLUDE_ARGUMENT:
-                InputData->push_back(data(INCLUDE_ARGUMENT, 0));
-                break;
-            case LIBRARY_FILE_ARGUMENT:
-                InputData->push_back(data(LIBRARY_FILE_ARGUMENT, 0));
-                break;
-            case LIBRARY_PATH_ARGUMENT:
-                InputData->push_back(data(LIBRARY_PATH_ARGUMENT, 0));
-                break;
-            
-            default:
-                std::cout<<"invalid argument\n";
-                break;
-            }
+        uint16_t argType = checkArgument(ARGUMENT_TYPE, argument, files);
+        if(argType){
+            InputData->push_back(data(argType, 0));
+        }
 
         // characters after colon are the parameters
         std::string parameter = currentLine.substr(colonIndex + 1, getCharIndex(currentLine, '\n') - colonIndex - 1);
             // check if the parameter is valid
             // put the parameter in the input vector
             // TODO: do the same with this like the previous switch statement
-            switch (checkArgument(PARAMETER_TYPE, parameter, files))
-            {
-            case VERSION_CPP20:
-                InputData->at(i).value = VERSION_CPP20;
-                break;
-
-            case VERSION_CPP17:
-                InputData->at(i).value = VERSION_CPP17;
-                break;
-
-            case VERSION_CPP14:
-                InputData->at(i).value = VERSION_CPP14;
-                break;
-            
-            case VERSION_CPP11:
-                InputData->at(i).value = VERSION_CPP11;
-                break;
-            
-            case VERSION_CPP03:
-                InputData->at(i).value = VERSION_CPP03;
-                break;
-
-            case VERSION_CPP98:
-                InputData->at(i).value = VERSION_CPP98;
-                break;
-            
-            case LANGUAGE_CPP:
-                InputData->at(i).value = LANGUAGE_CPP;
-                break;
-
-            case FILE_PARAMETER:
-                InputData->at(i).value = FILE_PARAMETER;
-                break;
-            
-            case INCLUDE_PARAMETER:
-                InputData->at(i).value = INCLUDE_PARAMETER;
-                break;
-            
-            case LIBRARY_FILE_PARAMETER:
-                InputData->at(i).value = LIBRARY_FILE_PARAMETER;
-                break;
-            
-            case LIBRARY_PATH_PARAMETER:
-                InputData->at(i).value =  LIBRARY_PATH_PARAMETER;
-                break;
-
-            default:
-                std::cout<<"invalid parameter\n";
-                break;
+            uint16_t parType = checkArgument(PARAMETER_TYPE, parameter, files);
+            if(parType){
+                InputData->at(i).value = parType;
             }
     }
 }
