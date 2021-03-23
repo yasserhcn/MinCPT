@@ -30,6 +30,7 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
         if(text == "libdir"){
             return LIBRARY_PATH_ARGUMENT;
         }else{
+            logText("WARNING : argument name", "unknown argument name detected, ignoring...");
             return 0;
         }
 
@@ -94,6 +95,7 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
         }
 
         if(!found){
+            logText("WARNING : ", "invalid parameter type, ignoring...");
             return 0;
         }
 
@@ -127,6 +129,7 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
         int colonIndex = getCharIndex(currentLine, ':');
         if(colonIndex == -1)
         {
+            logText("WARNING : syntax error", "line : " + i+1);
             std::cerr << "syntax error at line : " << i + 1 << std::endl;
             continue;
         }
@@ -141,9 +144,7 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
 
         // characters after colon are the parameters
         std::string parameter = currentLine.substr(colonIndex + 1, getCharIndex(currentLine, '\n') - colonIndex - 1);
-            // check if the parameter is valid
-            // put the parameter in the input vector
-            // TODO: do the same with this like the previous switch statement
+            // check if the parameter is valid and put the parameter in the input vector
             uint16_t parType = checkArgument(PARAMETER_TYPE, parameter, files);
             if(parType){
                 InputData->at(i).value = parType;
@@ -192,6 +193,7 @@ std::string getCommand(uint16_t type, std::vector<std::string> *files, int index
         break;
 
     default:
+        logText("WARNING : ", "invalid getCommand value, ignoring...");
         break;
     }
 }

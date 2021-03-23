@@ -4,6 +4,7 @@
 #include <iostream> // debugging
 #include <memory>
 #include <vector>
+#include "logging.hpp"
 
 
 #define ARGUMENT_TYPE 10

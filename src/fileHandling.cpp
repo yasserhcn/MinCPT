@@ -1,6 +1,6 @@
 #include "fileHandling.hpp"
 #include "strings.hpp"
-
+#include "logging.hpp"
 
 void getTextFromFile(std::string fileName, std::string *text)
 {
@@ -8,9 +8,11 @@ void getTextFromFile(std::string fileName, std::string *text)
     file.open(fileName, std::ios_base::in);
 
     if(!file){
+        logText("ERROR! : ", "FILE CANNOT BE OPENED");
         std::cerr<<"can't open file : "<<fileName<<std::endl;
         return;
     }
+    logText("sucessful : ", "file opened successfuly");
     std::string line;
     while (std::getline(file, line))
     {
@@ -35,6 +37,7 @@ void parseText(std::string *text)
             goto checkNext;
         }
 
+        // TODO: don't remove spaces between quotes
         // find spaces and remove them
         space:
         index = getCharIndex(*text, ' ', occurences);
