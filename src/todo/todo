@@ -1,0 +1,10 @@
+PRIORITY:
+- fix crashing when making command
+
+FIXES:
+- fix quotes not working
+- link the argument with its parameter
+    - fix include path
+    - fix lib folder
+- filename not first argument
+- language doesn't need to be first
