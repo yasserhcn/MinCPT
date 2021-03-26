@@ -25,10 +25,19 @@ void getTextFromFile(std::string fileName, std::string *text)
 void parseText(std::string *text)
 {
     uint16_t occurences = 0;
+    bool quote = false;
     
     int index;
     for (uint16_t i = 0; i < text->length(); i++)
     {
+        if ((*text)[i] == '"'){
+            text->erase(i, 1);
+            if(quote){
+                quote = false;
+            }else{
+                quote = true;
+            }
+        }
         // find unecessary endline characters and remove them
         index = getCharIndex(*text, '\n', occurences);
         checkNext:
@@ -39,13 +48,15 @@ void parseText(std::string *text)
 
         // TODO: don't remove spaces between quotes
         // find spaces and remove them
-        space:
-        index = getCharIndex(*text, ' ', occurences);
-        if((*text)[index] == ' '){
-            text->erase(index, 1);
-            goto space;
+        if(quote){
+            space:
+            index = getCharIndex(*text, ' ', occurences);
+            if((*text)[index] == ' '){
+                text->erase(index, 1);
+                goto space;
+            }
+            occurences++;
         }
 
-        occurences++;
     }
 }

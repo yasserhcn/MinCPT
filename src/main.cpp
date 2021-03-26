@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
 
     std::string text;
     getTextFromFile(fileName, &text);
+
     parseText(&text);
 
     std::vector<data> data;
@@ -40,8 +41,8 @@ int main(int argc, char *argv[])
 
     std::string command;
     makeCommand(data, &command, &files);
+    
     std::cout<<command;
-
     if(shouldBuild)
     {
         system(command.c_str());

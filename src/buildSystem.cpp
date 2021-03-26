@@ -30,7 +30,7 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
         if(text == "libdir"){
             return LIBRARY_PATH_ARGUMENT;
         }else{
-            logText("WARNING : argument name", "unknown argument name detected, ignoring...");
+            logText("WARNING : ", "unknown argument name detected, ignoring...");
             return 0;
         }
 
@@ -72,6 +72,9 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
         if(text.substr(0,3) == "cpp")
         {
             found = true;
+            if (text.length() == 3){
+                return LANGUAGE_CPP;
+            }else
             if(text.substr(3, 2) == "20"){
                 return VERSION_CPP20;
             }else
@@ -89,12 +92,11 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
             }else
             if(text.substr(3, 2) == "98"){
                 return VERSION_CPP98;
-            }else if (text.length() == 3){
-                return LANGUAGE_CPP;
             }
         }
 
         if(!found){
+            std::cout << text << std::endl;
             logText("WARNING : ", "invalid parameter type, ignoring...");
             return 0;
         }
@@ -129,14 +131,14 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
         int colonIndex = getCharIndex(currentLine, ':');
         if(colonIndex == -1)
         {
-            logText("WARNING : syntax error", "line : " + i+1);
+            logText("WARNING syntax error ", "line : " + i+1);
             std::cerr << "syntax error at line : " << i + 1 << std::endl;
             continue;
         }
 
         // characters before colons are arguments
         std::string argument = currentLine.substr(0, colonIndex);
-            // check if the argument exists and put it in the input vector
+        // check if the argument exists and put it in the input vector
         uint16_t argType = checkArgument(ARGUMENT_TYPE, argument, files);
         if(argType){
             InputData->push_back(data(argType, 0));
@@ -193,6 +195,7 @@ std::string getCommand(uint16_t type, std::vector<std::string> *files, int index
         break;
 
     default:
+        std::cout << type << std::endl;
         logText("WARNING : ", "invalid getCommand value, ignoring...");
         break;
     }
@@ -200,6 +203,7 @@ std::string getCommand(uint16_t type, std::vector<std::string> *files, int index
 
 void makeCommand(std::vector<data> data, std::string *command, std::vector<std::string> *files)
 {
+    std::cout << (data)[2].value << std::endl;
     *command = "";
     if((data)[0].value == LANGUAGE_CPP)
     {
@@ -208,10 +212,10 @@ void makeCommand(std::vector<data> data, std::string *command, std::vector<std::
     {
         *command += "gcc";
     }
-    
     int fileIndex = 0;
     for (uint16_t i = 1; i < data.size(); i++)
     {
+        
         *command += getCommand((data)[i].value, files, fileIndex);
         *command += " ";
         if((data)[i].value == FILE_PARAMETER || (data)[i].value == INCLUDE_PARAMETER || (data)[i].value == LIBRARY_FILE_PARAMETER){
