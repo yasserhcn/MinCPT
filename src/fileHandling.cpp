@@ -26,6 +26,8 @@ void parseText(std::string *text)
 {
     uint16_t occurences = 0;
     bool quote = false;
+    uint16_t nlnoccurence = 0;
+    uint16_t spcoccurence = 0;
     
     int index;
     for (uint16_t i = 0; i < text->length(); i++)
@@ -39,24 +41,28 @@ void parseText(std::string *text)
             }
         }
         // find unecessary endline characters and remove them
-        index = getCharIndex(*text, '\n', occurences);
+        index = getCharIndex(*text, '\n', nlnoccurence);
         checkNext:
         if( (*text)[index + 1] == '\n'){
             text->erase(index + 1, 1);
             goto checkNext;
         }
+        
+        nlnoccurence++;
 
         // TODO: don't remove spaces between quotes
         // find spaces and remove them
-        if(quote){
+        if(!quote){
             space:
-            index = getCharIndex(*text, ' ', occurences);
+            index = getCharIndex(*text, ' ', spcoccurence);
             if((*text)[index] == ' '){
                 text->erase(index, 1);
                 goto space;
             }
-            occurences++;
+        }else{
+            spcoccurence++;
         }
-
     }
+
+    std::cout << (*text) << std::endl;
 }

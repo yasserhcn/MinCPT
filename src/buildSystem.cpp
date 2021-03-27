@@ -96,7 +96,6 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
         }
 
         if(!found){
-            std::cout << text << std::endl;
             logText("WARNING : ", "invalid parameter type, ignoring...");
             return 0;
         }
@@ -183,19 +182,18 @@ std::string getCommand(uint16_t type, std::vector<std::string> *files, int index
         break;
     
     case INCLUDE_PARAMETER:
-        return ("-I" + (*files)[index]);
+        return ("-I\"" + (*files)[index] + "\"");
         break;
     
     case LIBRARY_FILE_PARAMETER:
-        return ("-l" + (*files)[index]);
+        return ("-l\"" + (*files)[index] + "\"");
         break;
 
     case LIBRARY_PATH_PARAMETER:
-        return ("-L" + (*files)[index]);
+        return ("-L\"" + (*files)[index] + "\"");
         break;
 
     default:
-        std::cout << type << std::endl;
         logText("WARNING : ", "invalid getCommand value, ignoring...");
         break;
     }
@@ -203,7 +201,6 @@ std::string getCommand(uint16_t type, std::vector<std::string> *files, int index
 
 void makeCommand(std::vector<data> data, std::string *command, std::vector<std::string> *files)
 {
-    std::cout << (data)[2].value << std::endl;
     *command = "";
     if((data)[0].value == LANGUAGE_CPP)
     {
