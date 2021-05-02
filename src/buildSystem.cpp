@@ -2,7 +2,7 @@
 #include "strings.hpp"
 
 
-int checkArgument(int type, std::string text, std::vector<std::string> *files)
+int checkArgument(int type, std::string text, /*std::vector<std::string> *files*/ std::vector<data> *files)
 {
     // convert the text to lowercase
     for (uint16_t i = 0; i < text.length(); i++)
@@ -46,7 +46,9 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
             if(text.substr(text.length()-7, 7) == "include")
             {
                 found = true;
-                files->push_back(text);
+                // ** files vector **
+                //files->push_back(text);
+                files->push_back(data(PARAMETER_TYPE, INCLUDE_PARAMETER, text));
                 return INCLUDE_PARAMETER;
             }
         }
@@ -54,16 +56,22 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
             if(text.substr(text.length()-3, 3) == "cpp" || text.substr(text.length()-1, 1) == "c")
             {
                 found = true;
-                files->push_back(text);
+                // ** files vector **
+                //files->push_back(text);
+                files->push_back(data(PARAMETER_TYPE, FILE_PARAMETER, text));
                 return FILE_PARAMETER;
             }else if(text.substr(text.length()-2, 2) == ".a"){
                 found = true;
-                files->push_back(text);
+                // ** files vector **
+                //files->push_back(text);
+                files->push_back(data(PARAMETER_TYPE, LIBRARY_FILE_PARAMETER, text));
                 return LIBRARY_FILE_PARAMETER;
             }else
             if(text.substr(text.length()-3, 3) == "lib"){
                 found = true;
-                files->push_back(text);
+                // ** files vector **
+                //files->push_back(text);
+                files->push_back(data(PARAMETER_TYPE, LIBRARY_PATH_PARAMETER, text));
                 return LIBRARY_PATH_PARAMETER;
             }
         }
@@ -104,7 +112,7 @@ int checkArgument(int type, std::string text, std::vector<std::string> *files)
 }
 
 
-void lex(std::string *text, std::vector<data> *InputData, std::vector<std::string> *files)
+void lex(std::string *text, std::vector<data> *InputData, /*std::vector<std::string> *files*/ std::vector<data> *files)
 {
     int amountOfLines = 0;
     int occurence = 0;
@@ -153,7 +161,7 @@ void lex(std::string *text, std::vector<data> *InputData, std::vector<std::strin
     }
 }
 
-std::string getCommand(uint16_t type, std::vector<std::string> *files, int index)
+std::string getCommand(uint16_t type, /*std::vector<std::string> *files*/ std::vector<data> *files, int index)
 {
     switch (type)
     {
@@ -178,19 +186,24 @@ std::string getCommand(uint16_t type, std::vector<std::string> *files, int index
         break;
     
     case FILE_PARAMETER:
-        return (*files)[index];
+        // ** files vector **
+        // return (*files)[index];
         break;
     
     case INCLUDE_PARAMETER:
-        return ("-I\"" + (*files)[index] + "\"");
+        // ** files vector **
+        // return ("-I\"" + (*files)[index] + "\"");
+        
         break;
     
     case LIBRARY_FILE_PARAMETER:
-        return ("-l\"" + (*files)[index] + "\"");
+        // ** files vector **
+        // return ("-l\"" + (*files)[index] + "\"");
         break;
 
     case LIBRARY_PATH_PARAMETER:
-        return ("-L\"" + (*files)[index] + "\"");
+        // ** files vector **
+        // return ("-L\"" + (*files)[index] + "\"");
         break;
 
     default:
@@ -199,23 +212,23 @@ std::string getCommand(uint16_t type, std::vector<std::string> *files, int index
     }
 }
 
-void makeCommand(std::vector<data> data, std::string *command, std::vector<std::string> *files)
+void makeCommand(std::vector<data> dataIn, std::string *command, /*std::vector<std::string> *files*/ std::vector<data> *files)
 {
     *command = "";
-    if((data)[0].value == LANGUAGE_CPP)
+    if((dataIn)[0].value == LANGUAGE_CPP)
     {
         *command += "g++ ";
-    }else if((data)[0].value == LANGUAGE_C)
+    }else if((dataIn)[0].value == LANGUAGE_C)
     {
         *command += "gcc";
     }
     int fileIndex = 0;
-    for (uint16_t i = 1; i < data.size(); i++)
+    for (uint16_t i = 1; i < dataIn.size(); i++)
     {
         
-        *command += getCommand((data)[i].value, files, fileIndex);
+        *command += getCommand((dataIn)[i].value, files, fileIndex);
         *command += " ";
-        if((data)[i].value == FILE_PARAMETER || (data)[i].value == INCLUDE_PARAMETER || (data)[i].value == LIBRARY_FILE_PARAMETER){
+        if((dataIn)[i].value == FILE_PARAMETER || (dataIn)[i].value == INCLUDE_PARAMETER || (dataIn)[i].value == LIBRARY_FILE_PARAMETER){
             fileIndex++;
         }
     }

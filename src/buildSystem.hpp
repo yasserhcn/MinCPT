@@ -40,18 +40,20 @@ struct data
 {
     data(){}
     data(uint8_t typeIn, uint8_t valueIn) :type(typeIn), value(valueIn){}
+    data(uint8_t typeIn, uint8_t valueIn, std::string nameIn) :type(typeIn), value(valueIn), name(nameIn){}
     uint8_t type;
     uint8_t value;
+    std::string name = "";
 };
 
 // checks if the argument exists and returns the type
-int checkArgument(int type, std::string text, std::vector<std::string> *files);
+int checkArgument(int type, std::string text, /*std::vector<std::string> *files*/ std::vector<data> *files);
 
 // lexer to return the arguments and values
-void lex(std::string *text, std::vector<data> *data, std::vector<std::string> *files);
+void lex(std::string *text, std::vector<data> *dataIn, /*std::vector<std::string> *files*/ std::vector<data> *files);
 
 // returns the command at an index using the type
-std::string getCommand(uint16_t type, std::vector<std::string> *files, int index = 0);
+std::string getCommand(uint16_t type, /*std::vector<std::string> *files*/ std::vector<data> *files, int index = 0);
 
 // make the command to do the syscall
-void makeCommand(std::vector<data> data, std::string *command, std::vector<std::string> *files = NULL);
+void makeCommand(std::vector<data> dataIn, std::string *command, /*std::vector<std::string> *files = NULL*/std::vector<data> *files );

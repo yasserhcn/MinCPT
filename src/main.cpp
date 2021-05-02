@@ -36,11 +36,11 @@ int main(int argc, char *argv[])
     parseText(&text);
 
     std::vector<data> data;
-    std::vector<std::string> files;
-    lex(&text, &data, &files);
+    //std::vector<std::string> files;
+    lex(&text, &data, /*&files*/ &data);
 
     std::string command;
-    makeCommand(data, &command, &files);
+    makeCommand(data, &command, /*&files*/ &data);
     
     std::cout<<command;
     if(shouldBuild)
