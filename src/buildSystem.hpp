@@ -50,7 +50,7 @@ struct data
 int checkArgument(int type, std::string text, /*std::vector<std::string> *files*/ std::vector<data> *files);
 
 // lexer to return the arguments and values
-void lex(std::string *text, std::vector<data> *dataIn, /*std::vector<std::string> *files*/ std::vector<data> *files);
+void lex(std::string *text, std::vector<data> *dataIn);
 
 // returns the command at an index using the type
 std::string getCommand(uint16_t type, /*std::vector<std::string> *files*/ std::vector<data> *files, int index = 0);

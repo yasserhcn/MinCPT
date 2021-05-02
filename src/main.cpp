@@ -33,14 +33,28 @@ int main(int argc, char *argv[])
     std::string text;
     getTextFromFile(fileName, &text);
 
+    std::cout << "0" << std::endl;
     parseText(&text);
 
-    std::vector<data> data;
+    std::vector<data> fdata;
     //std::vector<std::string> files;
-    lex(&text, &data, /*&files*/ &data);
+    std::cout << "1" << std::endl;
+    lex(&text, &fdata);
 
+    // output vector data for debugging
+    std::cout << "vector data -----------------------------" << std::endl;
+    for (int i = 0; i < fdata.size(); i++)
+    {
+        std::cout << "------"<<i<<"-----" << std::endl;
+        std::cout << "type : "<< (int)fdata[i].type << std::endl;
+        std::cout << "value : "<< (int)fdata[i].value << std::endl;
+        std::cout << "name : "<< fdata[i].name << std::endl;
+    }
+    std::cout << "end vector data --------------------------" << std::endl;
+
+    std::cout << "2" << std::endl;
     std::string command;
-    makeCommand(data, &command, /*&files*/ &data);
+    makeCommand(fdata, &command, /*&files*/ &fdata);
     
     std::cout<<command;
     if(shouldBuild)

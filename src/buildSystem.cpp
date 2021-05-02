@@ -42,13 +42,21 @@ int checkArgument(int type, std::string text, /*std::vector<std::string> *files*
         //the parameter is a file
         // put this in its own function so different extensions are easy to manage
         // ! CHANGE THE WAY IT'S CHECKED FOR A MORE ROBUST WAY
+        // 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///
+        ///
+        /// ! NEEDS REWRITE
+        ///
+        ///
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
         if(text.length() > 6){
             if(text.substr(text.length()-7, 7) == "include")
             {
                 found = true;
                 // ** files vector **
                 //files->push_back(text);
-                files->push_back(data(PARAMETER_TYPE, INCLUDE_PARAMETER, text));
+                //(*files)[vecIndex].name = text;
                 return INCLUDE_PARAMETER;
             }
         }
@@ -58,25 +66,25 @@ int checkArgument(int type, std::string text, /*std::vector<std::string> *files*
                 found = true;
                 // ** files vector **
                 //files->push_back(text);
-                files->push_back(data(PARAMETER_TYPE, FILE_PARAMETER, text));
+                //(*files)[vecIndex].name = text;
                 return FILE_PARAMETER;
             }else if(text.substr(text.length()-2, 2) == ".a"){
                 found = true;
                 // ** files vector **
                 //files->push_back(text);
-                files->push_back(data(PARAMETER_TYPE, LIBRARY_FILE_PARAMETER, text));
+                //(*files)[vecIndex].name = text;
                 return LIBRARY_FILE_PARAMETER;
             }else
             if(text.substr(text.length()-3, 3) == "lib"){
                 found = true;
                 // ** files vector **
                 //files->push_back(text);
-                files->push_back(data(PARAMETER_TYPE, LIBRARY_PATH_PARAMETER, text));
+                //(*files)[vecIndex].name = text;
                 return LIBRARY_PATH_PARAMETER;
             }
         }
 
-        // the parameter is a language thingy
+        // c++ language version
         if(text.substr(0,3) == "cpp")
         {
             found = true;
@@ -112,7 +120,7 @@ int checkArgument(int type, std::string text, /*std::vector<std::string> *files*
 }
 
 
-void lex(std::string *text, std::vector<data> *InputData, /*std::vector<std::string> *files*/ std::vector<data> *files)
+void lex(std::string *text, std::vector<data> *InputData)
 {
     int amountOfLines = 0;
     int occurence = 0;
@@ -146,23 +154,27 @@ void lex(std::string *text, std::vector<data> *InputData, /*std::vector<std::str
         // characters before colons are arguments
         std::string argument = currentLine.substr(0, colonIndex);
         // check if the argument exists and put it in the input vector
-        uint16_t argType = checkArgument(ARGUMENT_TYPE, argument, files);
-        if(argType){
-            InputData->push_back(data(argType, 0));
-        }
+            uint16_t argType = checkArgument(ARGUMENT_TYPE, argument, InputData);
+            if(argType){
+                InputData->push_back(data(argType, 0));
+            }
 
         // characters after colon are the parameters
         std::string parameter = currentLine.substr(colonIndex + 1, getCharIndex(currentLine, '\n') - colonIndex - 1);
             // check if the parameter is valid and put the parameter in the input vector
-            uint16_t parType = checkArgument(PARAMETER_TYPE, parameter, files);
+
+            // TODO: change function so that it takes the previous argument as an option
+            uint16_t parType = checkArgument(PARAMETER_TYPE, parameter, InputData);
             if(parType){
                 InputData->at(i).value = parType;
+                InputData->at(i).name = parameter;
             }
     }
 }
 
 std::string getCommand(uint16_t type, /*std::vector<std::string> *files*/ std::vector<data> *files, int index)
 {
+    std::cout << "1" << std::endl;
     switch (type)
     {
         // versions
@@ -188,26 +200,34 @@ std::string getCommand(uint16_t type, /*std::vector<std::string> *files*/ std::v
     case FILE_PARAMETER:
         // ** files vector **
         // return (*files)[index];
+            std::cout << "1" << std::endl;
+            return (*files)[index].name;
         break;
     
     case INCLUDE_PARAMETER:
         // ** files vector **
         // return ("-I\"" + (*files)[index] + "\"");
-        
+            std::cout << "2" << std::endl;
+            return ("-I\"" + (*files)[index].name + "\"");
         break;
     
     case LIBRARY_FILE_PARAMETER:
         // ** files vector **
         // return ("-l\"" + (*files)[index] + "\"");
+            return ("-l\"" + (*files)[index].name + "\"");
+            std::cout << "3" << std::endl;
         break;
 
     case LIBRARY_PATH_PARAMETER:
         // ** files vector **
         // return ("-L\"" + (*files)[index] + "\"");
+            return ("-l\"" + (*files)[index].name + "\"");
+            std::cout << "4" << std::endl;
         break;
 
     default:
         logText("WARNING : ", "invalid getCommand value, ignoring...");
+        return 0;
         break;
     }
 }
@@ -225,12 +245,11 @@ void makeCommand(std::vector<data> dataIn, std::string *command, /*std::vector<s
     int fileIndex = 0;
     for (uint16_t i = 1; i < dataIn.size(); i++)
     {
-        
-        *command += getCommand((dataIn)[i].value, files, fileIndex);
+        *command += getCommand((dataIn)[i].value, files, i);
         *command += " ";
-        if((dataIn)[i].value == FILE_PARAMETER || (dataIn)[i].value == INCLUDE_PARAMETER || (dataIn)[i].value == LIBRARY_FILE_PARAMETER){
+        /*if((dataIn)[i].value == FILE_PARAMETER || (dataIn)[i].value == INCLUDE_PARAMETER || (dataIn)[i].value == LIBRARY_FILE_PARAMETER){
             fileIndex++;
-        }
+        }*/
     }
     
 }
