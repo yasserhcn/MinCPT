@@ -28,41 +28,42 @@ void parseText(std::string *text)
     bool quote = false;
     uint16_t nlnoccurence = 0;
     uint16_t spcoccurence = 0;
+    uint16_t length = text->length();
     
     int index;
-    for (uint16_t i = 0; i < text->length(); i++)
+    for (uint16_t i = 0; i < length; i++)
     {
         if ((*text)[i] == '"'){
             text->erase(i, 1);
+            length--;
+            i--;
             if(quote){
                 quote = false;
             }else{
                 quote = true;
             }
+
         }
         // find unecessary endline characters and remove them
         index = getCharIndex(*text, '\n', nlnoccurence);
         checkNext:
         if( (*text)[index + 1] == '\n'){
             text->erase(index + 1, 1);
+            length--;
+            i--;
             goto checkNext;
         }
-        
         nlnoccurence++;
 
-        // TODO: don't remove spaces between quotes
-        // find spaces and remove them
         if(!quote){
-            space:
-            index = getCharIndex(*text, ' ', spcoccurence);
-            if((*text)[index] == ' '){
-                text->erase(index, 1);
-                goto space;
+            if((*text)[i] == ' '){
+                text->erase(i, 1);
+                length--;
+                i--;
             }
-        }else{
+        }else if((*text)[i] == ' '){
             spcoccurence++;
         }
     }
 
-    std::cout << (*text) << std::endl;
 }
