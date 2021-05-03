@@ -18,3 +18,8 @@ int getCharIndex(std::string text, char character, uint16_t occurence)
 
     return -1;
 }
+
+/*int getVectorIndex(std::vector<data> *data, uint16_t value, uint16_t occurence = 0)
+{
+
+}*/

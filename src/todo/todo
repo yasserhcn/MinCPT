@@ -1,8 +1,8 @@
 PRIORITY:
-- fix quotes not working
+- fix quotes not working *CHECK*
 
 FIXES:
-- link the argument with its parameter
+- link the argument with its parameter  *CHECK*
     - fix include path
     - fix lib folder
 - filename not first argument
