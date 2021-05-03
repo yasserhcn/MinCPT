@@ -2,7 +2,7 @@
 #include "strings.hpp"
 
 
-int checkArgument(int type, std::string text, /*std::vector<std::string> *files*/ std::vector<data> *files)
+int checkArgument(int type, std::string text, /*std::vector<std::string> *files*/ std::vector<data> *files, int index)
 {
     // convert the text to lowercase
     for (uint16_t i = 0; i < text.length(); i++)
@@ -37,51 +37,27 @@ int checkArgument(int type, std::string text, /*std::vector<std::string> *files*
     }else if(type == PARAMETER_TYPE)
     {
         bool found = false;
-        // TODO: change the function so it knows what the previous argument was
-        // TODO: change the way include paths are detected (should change with the above one)
-        //the parameter is a file
-        // put this in its own function so different extensions are easy to manage
-        // ! CHANGE THE WAY IT'S CHECKED FOR A MORE ROBUST WAY
-        // 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        ///
-        ///
-        /// ! NEEDS REWRITE
-        ///
-        ///
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        if(text.length() > 6){
-            if(text.substr(text.length()-7, 7) == "include")
-            {
-                found = true;
-                // ** files vector **
-                //files->push_back(text);
-                //(*files)[vecIndex].name = text;
-                return INCLUDE_PARAMETER;
-            }
-        }
-        if(text.length() > 3){
-            if(text.substr(text.length()-3, 3) == "cpp" || text.substr(text.length()-1, 1) == "c")
-            {
-                found = true;
-                // ** files vector **
-                //files->push_back(text);
-                //(*files)[vecIndex].name = text;
-                return FILE_PARAMETER;
-            }else if(text.substr(text.length()-2, 2) == ".a"){
-                found = true;
-                // ** files vector **
-                //files->push_back(text);
-                //(*files)[vecIndex].name = text;
-                return LIBRARY_FILE_PARAMETER;
-            }else
-            if(text.substr(text.length()-3, 3) == "lib"){
-                found = true;
-                // ** files vector **
-                //files->push_back(text);
-                //(*files)[vecIndex].name = text;
-                return LIBRARY_PATH_PARAMETER;
-            }
+
+        switch ((*files)[index].type)
+        {
+        case INCLUDE_ARGUMENT:
+            return INCLUDE_PARAMETER;
+            break;
+        
+        case FILE_ARGUMENT:
+            return FILE_PARAMETER;
+            break;
+        
+        case LIBRARY_FILE_ARGUMENT:
+            return LIBRARY_FILE_PARAMETER;
+            break;
+        
+        case LIBRARY_PATH_ARGUMENT:
+            return LIBRARY_PATH_PARAMETER;
+            break;
+        
+        default:
+            break;
         }
 
         // c++ language version
@@ -164,7 +140,7 @@ void lex(std::string *text, std::vector<data> *InputData)
             // check if the parameter is valid and put the parameter in the input vector
 
             // TODO: change function so that it takes the previous argument as an option
-            uint16_t parType = checkArgument(PARAMETER_TYPE, parameter, InputData);
+            uint16_t parType = checkArgument(PARAMETER_TYPE, parameter, InputData, i);
             if(parType){
                 InputData->at(i).value = parType;
                 InputData->at(i).name = parameter;
@@ -174,7 +150,6 @@ void lex(std::string *text, std::vector<data> *InputData)
 
 std::string getCommand(uint16_t type, /*std::vector<std::string> *files*/ std::vector<data> *files, int index)
 {
-    std::cout << "1" << std::endl;
     switch (type)
     {
         // versions
@@ -200,14 +175,12 @@ std::string getCommand(uint16_t type, /*std::vector<std::string> *files*/ std::v
     case FILE_PARAMETER:
         // ** files vector **
         // return (*files)[index];
-            std::cout << "1" << std::endl;
             return (*files)[index].name;
         break;
     
     case INCLUDE_PARAMETER:
         // ** files vector **
         // return ("-I\"" + (*files)[index] + "\"");
-            std::cout << "2" << std::endl;
             return ("-I\"" + (*files)[index].name + "\"");
         break;
     
@@ -215,14 +188,12 @@ std::string getCommand(uint16_t type, /*std::vector<std::string> *files*/ std::v
         // ** files vector **
         // return ("-l\"" + (*files)[index] + "\"");
             return ("-l\"" + (*files)[index].name + "\"");
-            std::cout << "3" << std::endl;
         break;
 
     case LIBRARY_PATH_PARAMETER:
         // ** files vector **
         // return ("-L\"" + (*files)[index] + "\"");
-            return ("-l\"" + (*files)[index].name + "\"");
-            std::cout << "4" << std::endl;
+            return ("-L\"" + (*files)[index].name + "\"");
         break;
 
     default:

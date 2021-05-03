@@ -47,7 +47,7 @@ struct data
 };
 
 // checks if the argument exists and returns the type
-int checkArgument(int type, std::string text, /*std::vector<std::string> *files*/ std::vector<data> *files);
+int checkArgument(int type, std::string text, /*std::vector<std::string> *files*/ std::vector<data> *files, int index = -1);
 
 // lexer to return the arguments and values
 void lex(std::string *text, std::vector<data> *dataIn);
