@@ -1,10 +1,10 @@
 ## general overview
-the txt file containing the ~~stuff~~ can be used in the command line arguments or it defaults to `build.txt`
+the txt file containing the commands can be specified in the command line arguments else it defaults to `build.txt`
 
-the first text isn't case sensitive, so *LANGUAGE* is the same as *language*<br>
-on the other hand the text after the argument is case sensitive if the inputted text is a path or a name
+the argument isn't case sensitive, so *LANGUAGE* is the same as *language*<br>
+on the other hand the parameter is case sensitive if the inputted text is a path or a name
 
-each line needs to have **only one** argument or else there will be a syntax error
+each line needs to have **only one** argument and parameter
 
 ## choosing the language and version :
 - choosing the language :<br>
@@ -46,22 +46,18 @@ each line needs to have **only one** argument or else there will be a syntax err
     example:<br>
     library file that has the name `libcThing.a` <br>
     we'll have the following line `library : cThing` <br>
-    **note** : we don't use the prefix `lib` because gcc automatically add it when specifying the library file but the `.a` prefix is currently necessary
+    **note** : we don't use the prefix `lib` because gcc automatically add it when specifying the library file
 
 ## running the built file
 assuming that the built file is `CPT.exe`, you should open command prompt or the terminal and run the executable with the arguments that you want<br>
 the arguments are :<br>
-- `--build` : builds the project right away
-- `--no-build` : doesn't build the file
+- `-bbuild` : builds the project right away
+- `-bno-build` : doesn't build the file
   
 **important notes**:<br>
-- you *must* specify the filename as the first argument when using other arguments
-- include path *must* end with the folder `include` (temporary)
-- library paths *must* end with the folder `lib` (temporary)
-- the program automatically builds the file if `--no-build` or `--build` isn't used
+- the program automatically builds the file if `-bno-build` or `-bbuild` isn't used
   
   (temporary) : means that they're currently required to be used but are planned to be changed
 
 ## good practices
 - it's best to specify the language first, then the files, and then after that the language version
-- library files are better last
