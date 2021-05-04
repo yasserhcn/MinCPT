@@ -197,16 +197,22 @@ std::string getCommand(uint16_t type, std::vector<data> *files, int index)
 void makeCommand(std::vector<data> dataIn, std::string *command, std::vector<data> *files)
 {
     *command = "";
-    if((dataIn)[0].value == LANGUAGE_CPP)
-    {
-        *command += "g++ ";
-    }else if((dataIn)[0].value == LANGUAGE_C)
-    {
-        *command += "gcc";
-    }
+    bool lang = false;
     int fileIndex = 0;
     for (uint16_t i = 1; i < dataIn.size(); i++)
     {
+        // language type
+        if((dataIn)[0].value == LANGUAGE_CPP && lang == false)
+        {
+            command->insert(0, "g++ ");
+            lang = true;
+        }else if((dataIn)[0].value == LANGUAGE_C && lang == false)
+        {
+            command->insert(0, "gcc ");
+            lang = true;
+        }
+
+
         *command += getCommand((dataIn)[i].value, files, i);
         *command += " ";
         
