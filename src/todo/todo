@@ -5,6 +5,6 @@ FIXES:
 - link the argument with its parameter  *CHECK*
     - fix include path
     - fix lib folder
-- filename not first argument
-- language doesn't need to be first
-- add outputing function
+- filename not first argument    *CHECK*
+- language doesn't need to be first   *CHECK*  
+- add outputing function    ? forgot what this means
