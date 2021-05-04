@@ -6,28 +6,36 @@
 
 int main(int argc, char *argv[])
 {
-    std::string fileName;
+    std::string fileName = "build.txt";
     std::string arguments;
     bool shouldBuild = true;
 
     if(argc >= 2)
     {
-        fileName = argv[1];
-        
-        for (int i = 2; i < argc; i++)
+        for (int i = 1; i < argc; i++)
         {
-            if(argv[i] == "--build")
-            {
-                shouldBuild = true;
-            }else if(argv[i] == "--no-build")
-            {
-                shouldBuild = false;
+            char prefix[2] = { argv[i][0] , argv[i][1] };
+
+            if(prefix[0] == '-'){
+                std::string text = argv[i];
+                text.erase(0, 2);
+                switch (prefix[1])
+                {
+                case 'f':
+                    fileName = text + ".txt";
+                    break;
+                
+                case 'b':
+                    shouldBuild = (text == "build" ? true : false );
+                    break;
+                
+                default:
+                    break;
+                }
             }
+
         }
         
-    }else
-    {
-        fileName = "build.txt";
     }
 
     std::string text;
@@ -36,20 +44,7 @@ int main(int argc, char *argv[])
     parseText(&text);
 
     std::vector<data> fdata;
-    //std::vector<std::string> files;
     lex(&text, &fdata);
-
-    /* output vector data for debugging
-    std::cout << "vector data -----------------------------" << std::endl;
-    for (int i = 0; i < fdata.size(); i++)
-    {
-        std::cout << "------"<<i<<"-----" << std::endl;
-        std::cout << "type : "<< (int)fdata[i].type << std::endl;
-        std::cout << "value : "<< (int)fdata[i].value << std::endl;
-        std::cout << "name : "<< fdata[i].name << std::endl;
-    }
-    std::cout << "end vector data --------------------------" << std::endl;
-    */
 
     std::string command;
     makeCommand(fdata, &command, /*&files*/ &fdata);
