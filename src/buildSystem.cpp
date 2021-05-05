@@ -205,10 +205,12 @@ void makeCommand(std::vector<data> dataIn, std::string *command, std::vector<dat
         if((dataIn)[0].value == LANGUAGE_CPP && lang == false)
         {
             command->insert(0, "g++ ");
+            logText("language detected successfully ", "C++");
             lang = true;
         }else if((dataIn)[0].value == LANGUAGE_C && lang == false)
         {
             command->insert(0, "gcc ");
+            logText("language detected successfully", "C");
             lang = true;
         }
 

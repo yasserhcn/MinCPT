@@ -7,6 +7,7 @@ void getTextFromFile(std::string fileName, std::string *text)
     std::ifstream file;
     file.open(fileName, std::ios_base::in);
 
+    eraseLogText();
     if(!file){
         logText("ERROR! : ", "FILE CANNOT BE OPENED");
         std::cerr<<"can't open file : "<<fileName<<std::endl;

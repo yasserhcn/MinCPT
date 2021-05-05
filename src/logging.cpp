@@ -17,6 +17,12 @@ void logText(const char *logType, const char *text)
     }
     std::ofstream logText("Log.txt");
     std::cout << logType<<text << std::endl;
-    //logText << logType << text << std::endl;
+    logText << log << "\n" << logType << text  << std::endl;
     logText.close();
+}
+
+void eraseLogText()
+{
+    std::ofstream file("Log.txt");
+    file << "";
 }
