@@ -53,11 +53,12 @@ assuming that the built file is `CPT.exe`, you should open command prompt or the
 the arguments are :<br>
 - `-bbuild` : builds the project right away
 - `-bno-build` : doesn't build the file
-  
+
 **important notes**:<br>
-- the program automatically builds the file if `-bno-build` or `-bbuild` isn't used
-  
-  (temporary) : means that they're currently required to be used but are planned to be changed
+- the program automatically builds the file if `-bno-build` or `-bbuild` isn't use
+
+## executing
+when executing the program, it will create a log file called `Log.txt` in the directory the executable is located at, this file will only work for the latest time you executed it, when running it a second time the text inside of it will be overwritten
 
 ## good practices
 - it's best to specify the language first, then the files, and then after that the language version
