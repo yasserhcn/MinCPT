@@ -1,10 +1,3 @@
-PRIORITY:
-- fix quotes not working *CHECK*
-
-FIXES:
-- link the argument with its parameter  *CHECK*
-    - fix include path
-    - fix lib folder
-- filename not first argument    *CHECK*
-- language doesn't need to be first   *CHECK*  
-- add outputing function    ? forgot what this means
+- add option for adding gcc arguments
+- add cache so you won't need to execute the same command multiple times
+- add another executable to automatically build
