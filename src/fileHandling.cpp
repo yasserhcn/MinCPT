@@ -27,6 +27,7 @@ void parseText(std::string *text)
 {
     uint16_t occurences = 0;
     bool quote = false;
+    bool comment = false;
     uint16_t nlnoccurence = 0;
     uint16_t spcoccurence = 0;
     uint16_t length = text->length();
@@ -43,8 +44,17 @@ void parseText(std::string *text)
             }else{
                 quote = true;
             }
-
         }
+
+        if((*text)[i] == '#'){
+            comment = true;
+        }else
+        if((*text)[i] == '\n'){
+            comment = false;
+        }
+
+        // if text is a comment skip testing and just remove it
+        
         // find unecessary endline characters and remove them
         index = getCharIndex(*text, '\n', nlnoccurence);
         checkNext:
@@ -65,6 +75,14 @@ void parseText(std::string *text)
         }else if((*text)[i] == ' '){
             spcoccurence++;
         }
+        if(comment){
+            text->erase(i, 1);
+            i--;
+            length--;
+        }
+        
     }
+
+    std::cout<<(*text)<<"\n----------------------------------------\n"<<std::endl;
 
 }
