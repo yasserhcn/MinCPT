@@ -33,9 +33,10 @@
 #define INCLUDE_PARAMETER 160
 #define LIBRARY_FILE_PARAMETER 170
 #define LIBRARY_PATH_PARAMETER 180
+#define OUTPUT_PARAMETER 190
 #define FILE_PARAMETER 200
 
-// global variable bad, gotta find another way if it exists
+// the data struct for the vector
 struct data
 {
     data(){}

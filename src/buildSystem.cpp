@@ -30,6 +30,9 @@ int checkArgument(int type, std::string text, /*std::vector<std::string> *files*
         }else
         if(text == "libdir"){
             return LIBRARY_PATH_ARGUMENT;
+        }else
+        if(text == "output"){
+            return OUTPUT_ARGUMENT;
         }else{
             logText("WARNING : ", "unknown argument name detected, ignoring...");
             return 0;
@@ -56,6 +59,10 @@ int checkArgument(int type, std::string text, /*std::vector<std::string> *files*
         
         case LIBRARY_PATH_ARGUMENT:
             return LIBRARY_PATH_PARAMETER;
+            break;
+        
+        case OUTPUT_ARGUMENT:
+            return OUTPUT_PARAMETER;
             break;
         
         default:
@@ -185,6 +192,10 @@ std::string getCommand(uint16_t type, std::vector<data> *files, int index)
 
     case LIBRARY_PATH_PARAMETER:
         return ("-L\"" + (*files)[index].name + "\"");
+        break;
+    
+    case OUTPUT_PARAMETER:
+        return ("-o " + (*files)[index].name);
         break;
 
     default:

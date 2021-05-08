@@ -40,13 +40,18 @@ each line needs to have **only one** argument and parameter
     if we have the following path ```C:\programming thing\project\library``` <br>
     we'll have the following text : ``` libdir : C:\programming thing\project\library```
 
-
 - library files :<br>
     to point to the files with the library files you need to specify the `library` argument with the name of the library file<br>
     example:<br>
     library file that has the name `libcThing.a` <br>
     we'll have the following line `library : cThing` <br>
-    **note** : we don't use the prefix `lib` because gcc automatically add it when specifying the library file
+    **note** : we don't use the prefix `lib` in the library file name because gcc automatically add it when specifying the library file
+
+- outputting :<br>
+    to specify the name of the output file you need to use the `output` arguyment followed by the name of the output file<br>
+    example:<br>
+    exectuable with the name `executable123.exe` <br>
+    we'll have the following line : `output : executable123.exe`<br
 
 ## running the built file
 assuming that the built file is `CPT.exe`, you should open command prompt or the terminal and run the executable with the arguments that you want<br>
