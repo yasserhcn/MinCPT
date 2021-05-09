@@ -33,6 +33,9 @@ int checkArgument(int type, std::string text, /*std::vector<std::string> *files*
         }else
         if(text == "output"){
             return OUTPUT_ARGUMENT;
+        }else
+        if(text == "args"){
+            return EXTRA_ARGUMENTS;
         }else{
             logText("WARNING : ", "unknown argument name detected, ignoring...");
             return 0;
@@ -63,6 +66,10 @@ int checkArgument(int type, std::string text, /*std::vector<std::string> *files*
         
         case OUTPUT_ARGUMENT:
             return OUTPUT_PARAMETER;
+            break;
+        
+        case EXTRA_ARGUMENTS:
+            return EXTRA_ARGS_PARAMETER;
             break;
         
         default:
@@ -196,6 +203,10 @@ std::string getCommand(uint16_t type, std::vector<data> *files, int index)
     
     case OUTPUT_PARAMETER:
         return ("-o " + (*files)[index].name);
+        break;
+    
+    case EXTRA_ARGS_PARAMETER:
+        return (*files)[index].name;
         break;
 
     default:
