@@ -83,6 +83,4 @@ void parseText(std::string *text)
         
     }
 
-    std::cout<<(*text)<<"\n----------------------------------------\n"<<std::endl;
-
 }
