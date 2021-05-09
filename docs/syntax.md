@@ -51,7 +51,16 @@ each line needs to have **only one** argument and parameter
     to specify the name of the output file you need to use the `output` arguyment followed by the name of the output file<br>
     example:<br>
     exectuable with the name `executable123.exe` <br>
-    we'll have the following line : `output : executable123.exe`<br
+    we'll have the following line : `output : executable123.exe`<br>
+
+- extra gcc arguments :<br>
+    for extra gcc arguments that are not available, you can use the `args` argument<br>
+    example:<br>
+    we want to add the following arguments `-mconsole` and `-m32`<br>
+    we'll have the following line : `args : "-mconsole -m32"`<br>
+
+- comments :<br>
+    comments are specified by adding `#` at the beginning of the line
 
 ## running the built file
 assuming that the built file is `CPT.exe`, you should open command prompt or the terminal and run the executable with the arguments that you want<br>
