@@ -2,7 +2,7 @@
 #include "strings.hpp"
 
 
-int checkArgument(int type, std::string text, /*std::vector<std::string> *files*/ std::vector<data> *files, int index)
+int checkArgument(int type, std::string text,std::vector<data> *files, int index)
 {
     // convert the text to lowercase
     for (uint16_t i = 0; i < text.length(); i++)
@@ -71,9 +71,6 @@ int checkArgument(int type, std::string text, /*std::vector<std::string> *files*
         case EXTRA_ARGUMENTS:
             return EXTRA_ARGS_PARAMETER;
             break;
-        
-        default:
-            break;
         }
 
         // c++ language version
@@ -105,8 +102,11 @@ int checkArgument(int type, std::string text, /*std::vector<std::string> *files*
 
         // if we reach here, it means no type was found
         logText("WARNING : ", "invalid parameter type, ignoring...");
-        return -1;
+        return 0;
 
+    }else{
+        return 0;
+        logText("ERROR : ", "invalid type, must be argument or parameter");
     }
 }
 
@@ -211,7 +211,7 @@ std::string getCommand(uint16_t type, std::vector<data> *files, int index)
 
     default:
         logText("WARNING : ", "invalid getCommand value, ignoring...");
-        return 0;
+        return "";
         break;
     }
 }
@@ -236,7 +236,7 @@ void makeCommand(std::vector<data> dataIn, std::string *command, std::vector<dat
             lang = true;
         }
 
-
+        // add command to the string
         *command += getCommand((dataIn)[i].value, files, i);
         *command += " ";
         
