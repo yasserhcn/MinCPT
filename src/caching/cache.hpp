@@ -1,8 +1,10 @@
 #pragma once
 
 #include "../buildSystem.hpp"
+#include "../strings.hpp"
 #include <vector>
 #include <fstream>
+#include <string>
 
 // function used to find the corresponding cache text from the data
 // takes a pointer to the data int and a pointer to the string

@@ -51,14 +51,14 @@ void makeCache(std::vector<data> *dataIn){
     std::string text = "";
     for (int i = 0; i < dataIn->size(); i++)
     {
-        text += (*dataIn)[i].type;
+        text += std::to_string((*dataIn)[i].type);
         text += ':';
-        text += (*dataIn)[i].value;
+        text += std::to_string((*dataIn)[i].value);
         text += '\n';
     }
 
-    cacheFile<<text;
 
+    cacheFile<<text;
 }
 
 void getCache(std::vector<data> *dataOut){
@@ -66,6 +66,23 @@ void getCache(std::vector<data> *dataOut){
     std::ifstream cacheFile("CPTBuild.bld");
 
     std::string text = "";
+    std::string line = "";
+    while (std::getline(cacheFile, line)){
+        text += line;
+        text += '\n';
+    }
+
+    for (int i = 0; i < getOccurences(text, ':'); i++){
+
+        int colonIndex = getCharIndex(text, ':', i);
+        int nwlnIndex = getCharIndex(text, '\n', i);
+        int previousnwlnIndex = getCharIndex(text, '\n', i == 0 ? 0 : (i - 1));
+        previousnwlnIndex = i == 0 ? 0 : previousnwlnIndex;
+        std::string arg = text.substr(previousnwlnIndex + 1, colonIndex - previousnwlnIndex - 1);
+        // use vector to add the data
+        std::string par = text.substr(colonIndex + 1, nwlnIndex - colonIndex - 1);
+        // add data to vector
+    }
     
 
 }
