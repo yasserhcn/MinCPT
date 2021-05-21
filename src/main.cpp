@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "fileHandling.hpp"
 #include "buildSystem.hpp"
+#include "caching/cache.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -48,6 +49,8 @@ int main(int argc, char *argv[])
 
     std::string command;
     makeCommand(fdata, &command, /*&files*/ &fdata);
+
+    makeCache(&fdata);
     
     std::cout<<command;
     if(shouldBuild)
