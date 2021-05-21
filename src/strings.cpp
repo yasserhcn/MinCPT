@@ -19,7 +19,15 @@ int getCharIndex(std::string text, char character, uint16_t occurence)
     return -1;
 }
 
-/*int getVectorIndex(std::vector<data> *data, uint16_t value, uint16_t occurence = 0)
-{
+int getOccurences(std::string text, char character){
+    
+    int occ = 0;
+    for (int i = 0; i < text.length(); i++)
+    {
+        // branchless way of checking
+        occ += (text[i] == character);
+    }
 
-}*/
+    return occ;
+    
+}
