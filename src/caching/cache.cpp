@@ -1,10 +1,10 @@
 #include "cache.hpp"
 
-void convertData(uint16_t *data, std::string *name, bool direc = true){
+void convertData(uint16_t *data, std::string *name, bool direc){
     
     if(direc){
         // int to string conversion
-        switch (*data)
+        /*switch (*data)
         {
             // *arguments*
         case LANGUAGE_ARGUMENT:
@@ -18,10 +18,24 @@ void convertData(uint16_t *data, std::string *name, bool direc = true){
         case OUTPUT_ARGUMENT:
             *name = "arg";
             break;
+
+        case EXTRA_ARGUMENTS:
+            *name = "ext";
+            break;
         
+        case INCLUDE_ARGUMENT:
+            *name = "incl";
+            break;
+
+        case VERSION_ARGUMENT:
+            *name = "ver";
+            break;
+
         default:
             break;
-        }
+        }*/
+
+
 
     }else{
         // string to int conversion
@@ -32,17 +46,26 @@ void convertData(uint16_t *data, std::string *name, bool direc = true){
 
 void makeCache(std::vector<data> *dataIn){
 
-    std::ofstream cacheFile("CPTBuild.txt");
+    std::ofstream cacheFile("CPTBuild.bld");
 
     std::string text = "";
     for (int i = 0; i < dataIn->size(); i++)
     {
-        text += getCommand((*dataIn)[i].type, dataIn);
+        text += (*dataIn)[i].type;
         text += ':';
-        text += getCommand((*dataIn)[i].value, dataIn);
+        text += (*dataIn)[i].value;
         text += '\n';
     }
 
-    std::cout<<text;
+    cacheFile<<text;
+
+}
+
+void getCache(std::vector<data> *dataOut){
+
+    std::ifstream cacheFile("CPTBuild.bld");
+
+    std::string text = "";
+    
 
 }
