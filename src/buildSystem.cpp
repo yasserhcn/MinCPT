@@ -186,26 +186,32 @@ std::string getCommand(uint16_t type, std::vector<data> *files, int index)
         break;
     
     case FILE_PARAMETER:
+        logText("file found : ", ((*files)[index].name).c_str());
         return (*files)[index].name;
         break;
     
     case INCLUDE_PARAMETER:
+        logText("include path found : ", ((*files)[index].name).c_str());
         return ("-I\"" + (*files)[index].name + "\"");
         break;
     
     case LIBRARY_FILE_PARAMETER:
+        logText("library file found : ", ((*files)[index].name).c_str());
         return ("-l\"" + (*files)[index].name + "\"");
         break;
 
     case LIBRARY_PATH_PARAMETER:
+        logText("library file path found : ", ((*files)[index].name).c_str());
         return ("-L\"" + (*files)[index].name + "\"");
         break;
     
     case OUTPUT_PARAMETER:
+        logText("output file found : ", ((*files)[index].name).c_str());
         return ("-o " + (*files)[index].name);
         break;
     
     case EXTRA_ARGS_PARAMETER:
+        logText("extra arguments detected : ", ((*files)[index].name).c_str());
         return (*files)[index].name;
         break;
 
