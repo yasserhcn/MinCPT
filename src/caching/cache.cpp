@@ -87,8 +87,8 @@ void getCache(std::vector<data> *dataOut){
         std::string arg = text.substr(previousnwlnIndex + 1, colonIndex - previousnwlnIndex - 1);
         std::string par = text.substr(colonIndex + 1, colon2Index - colonIndex - 1);
         std::string name = text.substr(colon2Index + 1, nwlnIndex - colon2Index - 1);
-        
-        std::cout << arg << "/" << par << "/" << name << std::endl;
+
+        // convert string into int
         uint16_t argData = std::stoi(arg);
         uint16_t parData = std::stoi(par);
 
