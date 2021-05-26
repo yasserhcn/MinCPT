@@ -55,6 +55,8 @@ int main(int argc, char *argv[])
     std::string command;
     makeCommand(fdata, &command, /*&files*/ &fdata);
 
+    std::cout << command << std::endl;
+
     if(caching){
         makeCache(&fdata);
     }
