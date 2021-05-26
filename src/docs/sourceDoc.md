@@ -1,19 +1,32 @@
 ## buildSystem
 file is responsible of handling ann stuff related to reading text to making the command<br>
 **functions:**
-- checkArgument :<br> checks an Inputted argument as a string and places the result in a vector containing the data for it
-- lex : <br> puts the data from the extracted text into a data vector
-- getCommand : <br> returns command as a string from the types
-- makeCommand : <br> makes the command using the data vector
+- *checkArgument* : checks an Inputted argument as a string and places the result in a vector containing the data for it
+- *lex* : puts the data from the extracted text into a data vector
+- *getCommand* : returns command as a string from the types
+- *makeCommand* : makes the command using the data vector
 
 ## fileHandling
 used for accessing files and retrieving text, also containes a parser<br>
 **functions:**
-- getTextFromFile : <br> extracts the text from a text file
-- parseText : <br> parses the text so it's more readable to the build system functions
+- *getTextFromFile* : extracts the text from a text file
+- *parseText* : parses the text so it's more readable to the build system functions
   
 ## strings
 containes helpful functions for string access and manipulation<br>
+**function:**
+- *getcharindex* : finds the index of a character in a string, the difference between it and the standard library function is the ability the choose the occurence of the character
+- *getOccurences* : gets the amounts of characters in a string
 
 ## logging
 responsible for having functions used for logging<br>
+**function:**
+- *logText* : adds text in a log file called `log.txt` 
+- *eraseLogText* : erases text from the log file
+
+## caching
+responsible for creating and reding cache files generated from the data vector file
+**functions:**
+- *convertData* : not currently used, supposed to convert data from ints to strings or the other way around
+- *makeCache* : creates the cache file and writes data to it from the data vector
+- *getCache* : gets cache from the cache file and puts it in the data vector
