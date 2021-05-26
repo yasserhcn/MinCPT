@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
     std::string fileName = "build.txt";
     std::string arguments;
     bool shouldBuild = true;
+    bool caching = true;
 
     if(argc >= 2)
     {
@@ -27,7 +28,11 @@ int main(int argc, char *argv[])
                     break;
                 
                 case 'b':
-                    shouldBuild = (text == "build" ? true : false );
+                    shouldBuild = (text == "build");
+                    break;
+                
+                case 'c':
+                    caching = (text == "cache");
                     break;
                 
                 default:
@@ -50,9 +55,10 @@ int main(int argc, char *argv[])
     std::string command;
     makeCommand(fdata, &command, /*&files*/ &fdata);
 
-    makeCache(&fdata);
-    
-    std::cout<<command;
+    if(caching){
+        makeCache(&fdata);
+    }
+
     if(shouldBuild)
     {
         system(command.c_str());
