@@ -27,11 +27,20 @@ void parseText(std::string *text)
 {
     uint16_t occurences = 0;
     bool quote = false;
-    bool comment = false;
     uint16_t nlnoccurence = 0;
     uint16_t spcoccurence = 0;
+
+    // remove all comments before parsing
+    commentPos:
+    int commentIndex = getCharIndex(*text, '#');
+    if (commentIndex > 0)
+    {
+        removeLine(text, commentIndex);
+        goto commentPos;
+    }
+
+    // remove unecessary newlines and spaces
     uint16_t length = text->length();
-    
     int index;
     for (uint16_t i = 0; i < length; i++)
     {
@@ -46,15 +55,6 @@ void parseText(std::string *text)
             }
         }
 
-        if((*text)[i] == '#'){
-            comment = true;
-        }else
-        if((*text)[i] == '\n'){
-            comment = false;
-        }
-
-        // if text is a comment skip testing and just remove it
-        
         // find unecessary endline characters and remove them
         index = getCharIndex(*text, '\n', nlnoccurence);
         checkNext:
@@ -74,11 +74,6 @@ void parseText(std::string *text)
             }
         }else if((*text)[i] == ' '){
             spcoccurence++;
-        }
-        if(comment){
-            text->erase(i, 1);
-            i--;
-            length--;
         }
         
     }
