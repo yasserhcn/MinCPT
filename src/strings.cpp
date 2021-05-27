@@ -31,3 +31,20 @@ int getOccurences(std::string text, char character){
     return occ;
     
 }
+
+void removeLine(std::string *text, uint16_t removeIndex)
+{
+    int nwlnIndex = -1;
+    for (uint16_t i = removeIndex; i < text->length(); i++)
+    {
+        if((*text)[i] == '\n'){
+            nwlnIndex = i;
+            break;
+        }
+    }
+
+    if(nwlnIndex > 0){
+        text->erase(removeIndex, nwlnIndex - removeIndex + 1);
+    }
+    
+}
