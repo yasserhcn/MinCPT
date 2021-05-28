@@ -1,3 +1,4 @@
 - add option for adding gcc arguments *CHECK*
-- add cache so you won't need to execute the same command multiple times
-- add another executable to automatically build
+- add cache so you won't need to execute the same command multiple times *CHECK*
+- add another executable to automatically build *CHECK*
+
