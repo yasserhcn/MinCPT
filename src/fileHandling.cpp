@@ -7,13 +7,18 @@ void getTextFromFile(std::string fileName, std::string *text)
     std::ifstream file;
     file.open(fileName, std::ios_base::in);
 
+    // clear the log text before fetching the text
     eraseLogText();
+
+    // check if file exists
     if(!file){
         logText("ERROR! : ", "FILE CANNOT BE OPENED");
         std::cerr<<"can't open file : "<<fileName<<std::endl;
         return;
     }
     logText("sucessful : ", "file opened successfuly");
+
+    // place text in the variable
     std::string line;
     while (std::getline(file, line))
     {
@@ -66,6 +71,7 @@ void parseText(std::string *text)
         }
         nlnoccurence++;
 
+        // remove all spaces
         if(!quote){
             if((*text)[i] == ' '){
                 text->erase(i, 1);

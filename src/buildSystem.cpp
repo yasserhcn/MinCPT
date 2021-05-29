@@ -2,7 +2,7 @@
 #include "strings.hpp"
 
 
-int checkArgument(int type, std::string text,std::vector<data> *files, int index)
+int checkArgument(int type, std::string text,std::vector<data> *vecData, int index)
 {
     // convert the text to lowercase
     for (uint16_t i = 0; i < text.length(); i++)
@@ -46,7 +46,7 @@ int checkArgument(int type, std::string text,std::vector<data> *files, int index
     {
         bool found = false;
 
-        switch ((*files)[index].type)
+        switch ((*vecData)[index].arg)
         {
         case INCLUDE_ARGUMENT:
             return INCLUDE_PARAMETER;
@@ -111,7 +111,7 @@ int checkArgument(int type, std::string text,std::vector<data> *files, int index
 }
 
 
-void lex(std::string *text, std::vector<data> *InputData)
+void lex(std::string *text, std::vector<data> *vecData)
 {
     int amountOfLines = 0;
     int occurence = 0;
@@ -145,23 +145,23 @@ void lex(std::string *text, std::vector<data> *InputData)
         // characters before colons are arguments
         std::string argument = currentLine.substr(0, colonIndex);
         // check if the argument exists and put it in the input vector
-            uint16_t argType = checkArgument(ARGUMENT_TYPE, argument, InputData);
+            uint16_t argType = checkArgument(ARGUMENT_TYPE, argument, vecData);
             if(argType){
-                InputData->push_back(data(argType, 0));
+                vecData->push_back(data(argType, 0));
             }
 
         // characters after colon are the parameters
         std::string parameter = currentLine.substr(colonIndex + 1, getCharIndex(currentLine, '\n') - colonIndex - 1);
             // check if the parameter is valid and put the parameter in the input vector
-            uint16_t parType = checkArgument(PARAMETER_TYPE, parameter, InputData, i);
+            uint16_t parType = checkArgument(PARAMETER_TYPE, parameter, vecData, i);
             if(parType){
-                InputData->at(i).value = parType;
-                InputData->at(i).name = parameter;
+                vecData->at(i).par = parType;
+                vecData->at(i).parName = parameter;
             }
     }
 }
 
-std::string getCommand(uint16_t type, std::vector<data> *files, int index)
+std::string getCommand(uint16_t type, std::vector<data> *vecData, int index)
 {
     switch (type)
     {
@@ -185,34 +185,35 @@ std::string getCommand(uint16_t type, std::vector<data> *files, int index)
         return "-std=c++98";
         break;
     
+    
     case FILE_PARAMETER:
-        logText("file found : ", ((*files)[index].name).c_str());
-        return (*files)[index].name;
+        logText("file found : ", ((*vecData)[index].parName).c_str());
+        return (*vecData)[index].parName;
         break;
     
     case INCLUDE_PARAMETER:
-        logText("include path found : ", ((*files)[index].name).c_str());
-        return ("-I\"" + (*files)[index].name + "\"");
+        logText("include path found : ", ((*vecData)[index].parName).c_str());
+        return ("-I\"" + (*vecData)[index].parName + "\"");
         break;
     
     case LIBRARY_FILE_PARAMETER:
-        logText("library file found : ", ((*files)[index].name).c_str());
-        return ("-l\"" + (*files)[index].name + "\"");
+        logText("library file found : ", ((*vecData)[index].parName).c_str());
+        return ("-l\"" + (*vecData)[index].parName + "\"");
         break;
 
     case LIBRARY_PATH_PARAMETER:
-        logText("library file path found : ", ((*files)[index].name).c_str());
-        return ("-L\"" + (*files)[index].name + "\"");
+        logText("library file path found : ", ((*vecData)[index].parName).c_str());
+        return ("-L\"" + (*vecData)[index].parName + "\"");
         break;
     
     case OUTPUT_PARAMETER:
-        logText("output file found : ", ((*files)[index].name).c_str());
-        return ("-o " + (*files)[index].name);
+        logText("output file found : ", ((*vecData)[index].parName).c_str());
+        return ("-o " + (*vecData)[index].parName);
         break;
     
     case EXTRA_ARGS_PARAMETER:
-        logText("extra arguments detected : ", ((*files)[index].name).c_str());
-        return (*files)[index].name;
+        logText("extra arguments detected : ", ((*vecData)[index].parName).c_str());
+        return (*vecData)[index].parName;
         break;
 
     default:
@@ -222,7 +223,7 @@ std::string getCommand(uint16_t type, std::vector<data> *files, int index)
     }
 }
 
-void makeCommand(std::vector<data> dataIn, std::string *command, std::vector<data> *files)
+void makeCommand(std::vector<data> dataIn, std::string *command, std::vector<data> *vecData)
 {
     *command = "";
     bool lang = false;
@@ -230,12 +231,12 @@ void makeCommand(std::vector<data> dataIn, std::string *command, std::vector<dat
     for (uint16_t i = 1; i < dataIn.size(); i++)
     {
         // language type
-        if((dataIn)[0].value == LANGUAGE_CPP && lang == false)
+        if((dataIn)[0].par == LANGUAGE_CPP && lang == false)
         {
             command->insert(0, "g++ ");
             logText("language detected successfully ", "C++");
             lang = true;
-        }else if((dataIn)[0].value == LANGUAGE_C && lang == false)
+        }else if((dataIn)[0].par == LANGUAGE_C && lang == false)
         {
             command->insert(0, "gcc ");
             logText("language detected successfully", "C");
@@ -243,7 +244,7 @@ void makeCommand(std::vector<data> dataIn, std::string *command, std::vector<dat
         }
 
         // add command to the string
-        *command += getCommand((dataIn)[i].value, files, i);
+        *command += getCommand((dataIn)[i].par, vecData, i);
         *command += " ";
         
     }
