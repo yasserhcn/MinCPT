@@ -51,11 +51,11 @@ void makeCache(std::vector<data> *dataIn){
     std::string text = "";
     for (int i = 0; i < dataIn->size(); i++)
     {
-        text += std::to_string((*dataIn)[i].type);
+        text += std::to_string((*dataIn)[i].arg);
         text += ':';
-        text += std::to_string((*dataIn)[i].value);
+        text += std::to_string((*dataIn)[i].par);
         text += ':';
-        text += (*dataIn)[i].name;
+        text += (*dataIn)[i].parName;
         text += '\n';
     }
 
@@ -95,8 +95,8 @@ void getCache(std::vector<data> *dataOut){
         
         // add text to the vector
         dataOut->push_back(data(argData, 0, ""));
-        dataOut->at(i).value = parData;
-        dataOut->at(i).name = name;
+        dataOut->at(i).par = parData;
+        dataOut->at(i).parName = name;
         
     }
     
