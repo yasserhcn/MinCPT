@@ -1,3 +1,12 @@
-- cmake file for building
-- vsc plugin
-- general improvement
+priority:
+	- build shouldn't be default
+	- ability to hide logs
+	- fix logs in one line
+	- cptmake should build with no arguments
+	- add -h option for minCPT
+
+optional:
+	- cmake file for building
+	- vsc plugin
+	- general improvement
+	
