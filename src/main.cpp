@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
     std::string fileName = "build.txt";
     std::string arguments;
-    bool shouldBuild = true;
+    bool shouldBuild = false;
     bool caching = true;
 
     if(argc >= 2)
@@ -28,11 +28,11 @@ int main(int argc, char *argv[])
                     break;
                 
                 case 'b':
-                    shouldBuild = (text == "build");
+                    shouldBuild = (text == "uild");
                     break;
                 
                 case 'c':
-                    caching = (text == "cache");
+                    caching = (text == "ache");
                     break;
                 
                 default:
