@@ -11,13 +11,13 @@ void logText(const char *logType, const char *text)
     if(input){
         std::string line = "";
         while (std::getline(input, line)){
-            log += line;
+            log += line + '\n';
         }
         
     }
     std::ofstream logText("Log.txt");
     std::cout << logType<<text << std::endl;
-    logText << log << "\n" << logType << text  << std::endl;
+    logText << log << logType << text;
     logText.close();
 }
 
