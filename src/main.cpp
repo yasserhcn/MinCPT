@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include <map>
 #include "fileHandling.hpp"
 #include "buildSystem.hpp"
 #include "caching/cache.hpp"
@@ -11,6 +12,7 @@ int main(int argc, char *argv[])
     std::string arguments;
     bool shouldBuild = false;
     bool caching = true;
+    bool logging = false;
 
     if(argc >= 2)
     {
@@ -35,6 +37,10 @@ int main(int argc, char *argv[])
                     caching = (text == "ache");
                     break;
                 
+                case 'l':
+                    logging = (text == "ogging");
+                    break;
+                
                 default:
                     break;
                 }
@@ -55,7 +61,10 @@ int main(int argc, char *argv[])
     std::string command;
     makeCommand(fdata, &command, /*&files*/ &fdata);
 
-    std::cout << command << std::endl;
+
+    if(logging){
+        printLogs();
+    }
 
     if(caching){
         makeCache(&fdata);
@@ -65,6 +74,8 @@ int main(int argc, char *argv[])
     {
         system(command.c_str());
     }
+
+    std::cout << command << std::endl;
     
     return 0;
 }
