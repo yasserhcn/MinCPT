@@ -1,9 +1,9 @@
 priority:
 	- build shouldn't be default *CHECK*
-	- ability to hide logs
+	- ability to hide logs *CHECK*
 	- fix logs in one line *CHECK*
-	- cptmake shouldn't build with no arguments
-	- add -h option for minCPT
+	- cptmake shouldn build with no arguments
+	- add -h option for minCPT *CHECK*
 
 optional:
 	- cmake file for building

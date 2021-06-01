@@ -1,10 +1,21 @@
 #include <iostream>
 #include <string>
-#include <stdlib.h>
-#include <map>
 #include "fileHandling.hpp"
 #include "buildSystem.hpp"
 #include "caching/cache.hpp"
+
+
+void showHelp()
+{
+    const std::string helpText = "-h : shows this menu\n"
+                                 "-ffile.txt : specifies the file containing the build instructions\n"
+                                 "-build : automatically builds the files specified in the build text file\n"
+                                 "-cache : enables chaching for use with cptmake\n"
+                                 "-loggs : enables loggs to be printed to screen\n";
+    
+    std::cout<<helpText;
+
+}
 
 int main(int argc, char *argv[])
 {
@@ -38,7 +49,12 @@ int main(int argc, char *argv[])
                     break;
                 
                 case 'l':
-                    logging = (text == "ogging");
+                    logging = (text == "oggs");
+                    break;
+                
+                case 'h':
+                    showHelp();
+                    return 0;
                     break;
                 
                 default:
