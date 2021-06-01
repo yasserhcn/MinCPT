@@ -13,9 +13,6 @@ int main(int argc, char *argv[])
 
     std::cout<<command<<std::endl;
 
-    if(argc > 2){
-        if(argv[1] == "--build"){
-            system(command.c_str());
-        }
-    }
+    system(command.c_str());
+
 }
