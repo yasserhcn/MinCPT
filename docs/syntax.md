@@ -65,11 +65,13 @@ each line needs to have **only one** argument and parameter
 ## running the built file
 assuming that the built file is `CPT.exe`, you should open command prompt or the terminal and run the executable with the arguments that you want<br>
 the arguments are :<br>
-- `-bbuild` : builds the project right away
-- `-bno-build` : doesn't build the file
+- `-build` : builds the project right away
+- `-cache` : enables caching
+- `-fname` : sets the file name as `name.txt`<br> note : the `.txt` extension is automatically added
 
 **important notes**:<br>
-- the program automatically builds the file if `-bno-build` or `-bbuild` isn't use
+- the program doesn't build the project if `-build` isn't used
+- the filename shouldn't have a space between it and `-f` and the extension shouldn't be used
 
 ## executing
 when executing the program, it will create a log file called `Log.txt` in the directory the executable is located at, this file will only work for the latest time you executed it, when running it a second time the text inside of it will be overwritten
