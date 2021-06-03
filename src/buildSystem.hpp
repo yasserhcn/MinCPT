@@ -4,6 +4,7 @@
 #include <iostream> // debugging
 #include <memory>
 #include <vector>
+#include <map>
 #include "logging.hpp"
 
 

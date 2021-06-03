@@ -4,6 +4,17 @@
 
 int checkArgument(int type, std::string text,std::vector<data> *vecData, int index)
 {
+    std::map<std::string, uint16_t> argumentMap = {
+                                                {"language", LANGUAGE_ARGUMENT},
+                                                {"version", VERSION_ARGUMENT},
+                                                {"file", FILE_ARGUMENT},
+                                                {"include", INCLUDE_ARGUMENT},
+                                                {"library", LIBRARY_FILE_ARGUMENT},
+                                                {"libdir", LIBRARY_PATH_ARGUMENT},
+                                                {"output", OUTPUT_ARGUMENT},
+                                                {"args", EXTRA_ARGUMENTS}
+                                              };
+    
     // convert the text to lowercase
     for (uint16_t i = 0; i < text.length(); i++)
     {
@@ -13,33 +24,13 @@ int checkArgument(int type, std::string text,std::vector<data> *vecData, int ind
     // argument types
     if(type == ARGUMENT_TYPE)
     {
-        if(text == "language"){
-            return LANGUAGE_ARGUMENT;
-        }else
-        if(text == "version"){
-            return VERSION_ARGUMENT;
-        }else
-        if(text == "file"){
-            return FILE_ARGUMENT;
-        }else
-        if(text == "include"){
-            return INCLUDE_ARGUMENT;
-        }else
-        if(text == "library"){
-            return LIBRARY_FILE_ARGUMENT;
-        }else
-        if(text == "libdir"){
-            return LIBRARY_PATH_ARGUMENT;
-        }else
-        if(text == "output"){
-            return OUTPUT_ARGUMENT;
-        }else
-        if(text == "args"){
-            return EXTRA_ARGUMENTS;
-        }else{
-            logText("WARNING : ", "unknown argument name detected, ignoring...");
+        auto itr = argumentMap.find(text);
+
+        if(itr == argumentMap.end()){
             return 0;
         }
+
+        return itr->second;
 
         // parameter types
     }else if(type == PARAMETER_TYPE)
@@ -108,6 +99,7 @@ int checkArgument(int type, std::string text,std::vector<data> *vecData, int ind
         return 0;
         logText("ERROR : ", "invalid type, must be argument or parameter");
     }
+    return 0;
 }
 
 
