@@ -1,49 +1,5 @@
 #include "cache.hpp"
 
-void convertData(uint16_t *data, std::string *name, bool direc){
-    
-    if(direc){
-        // int to string conversion
-        /*switch (*data)
-        {
-            // *arguments*
-        case LANGUAGE_ARGUMENT:
-            *name = "lang";
-            break;
-        
-        case FILE_ARGUMENT:
-            *name = "file";
-            break;
-        
-        case OUTPUT_ARGUMENT:
-            *name = "arg";
-            break;
-
-        case EXTRA_ARGUMENTS:
-            *name = "ext";
-            break;
-        
-        case INCLUDE_ARGUMENT:
-            *name = "incl";
-            break;
-
-        case VERSION_ARGUMENT:
-            *name = "ver";
-            break;
-
-        default:
-            break;
-        }*/
-
-
-
-    }else{
-        // string to int conversion
-
-    }
-
-}
-
 void makeCache(std::vector<data> *dataIn){
 
     std::ofstream cacheFile("CPTBuild.bld");
