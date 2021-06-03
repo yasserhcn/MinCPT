@@ -12,5 +12,8 @@ to build the main file you can use g++ using :  `g++ src/main.cpp src/fileHandli
 
 and to use the caching file you can use : `g++ src/caching/buildCache.cpp src/caching/cache.cpp src/buildSystem.cpp src/strings.cpp src/logging.cpp -std=c++11 -o build/cptmake.exe`
 
-### using terminal
+### using a shell script
 this method works on windows, just run the `build.sh` file and the compiled files should be in the `build` folder
+
+### using cmake
+this is a cross platform method, go to your build folder and run `cmake 'path/to/CMakelists.txt'` and then run `make`
