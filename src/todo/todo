@@ -2,11 +2,11 @@ priority:
 	- build shouldn't be default *CHECK*
 	- ability to hide logs *CHECK*
 	- fix logs in one line *CHECK*
-	- cptmake shouldn build with no arguments
+	- cptmake should build with no arguments *CHECK*
 	- add -h option for minCPT *CHECK*
 
 optional:
-	- cmake file for building
+	- cmake file for building *CHECK*
 	- vsc plugin
 	- general improvement
 	

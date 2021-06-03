@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.10)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+project(mincpt)
+set(sourcesminCPT "./src/main.cpp" "./src/fileHandling.cpp" "./src/buildSystem.cpp" "./src/strings.cpp" "./src/logging.cpp" "./src/caching/cache.cpp")
+add_executable(mincpt ${sourcesminCPT})
+
+project(cptmake)
+set(sourcecptmake "./src/caching/buildCache.cpp" "./src/caching/cache.cpp" "./src/buildSystem.cpp" "./src/strings.cpp" "./src/logging.cpp")
+add_executable(cptmake ${sourcecptmake})
