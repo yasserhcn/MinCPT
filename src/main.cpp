@@ -8,6 +8,7 @@ struct commandArguments
 {
     std::string fileName = "build.txt";
     std::string arguments;
+    std::string path = "./";
     bool shouldBuild = false;
     bool caching = true;
     bool logging = false;
@@ -52,10 +53,15 @@ void ParseArgument(commandArguments *argPtr, std::string text)
         showHelp();
         break;
     
+    case 'd':
+        argPtr->path = text.substr(3) + '/';
+        break;
+
     default:
         break;
     }
 }
+
 
 int main(int argc, char *argv[])
 {
@@ -76,14 +82,10 @@ int main(int argc, char *argv[])
 
         }
         
-    }else
-    {
-        showHelp();
-        return 0;
     }
 
     std::string text;
-    getTextFromFile(arg.fileName, &text);
+    getTextFromFile((arg.path + arg.fileName), &text);
 
     parseText(&text);
 

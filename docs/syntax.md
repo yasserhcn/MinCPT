@@ -67,6 +67,8 @@ assuming that the built file is `CPT.exe`, you should open command prompt or the
 the arguments are :<br>
 - `-build` : builds the project right away
 - `-cache` : enables caching
+- `-loggs` : enables displaying loggs to the screen
+- `-dir"../place/to/file/"` : specifies the folder containing the build file
 - `-fname` : sets the file name as `name.txt`<br> note : the `.txt` extension is automatically added
 
 **important notes**:<br>
