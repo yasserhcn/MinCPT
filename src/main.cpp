@@ -4,6 +4,14 @@
 #include "buildSystem.hpp"
 #include "caching/cache.hpp"
 
+struct commandArguments
+{
+    std::string fileName = "build.txt";
+    std::string arguments;
+    bool shouldBuild = false;
+    bool caching = true;
+    bool logging = false;
+};
 
 void showHelp()
 {
@@ -17,15 +25,43 @@ void showHelp()
 
 }
 
+void ParseArgument(commandArguments *argPtr, std::string text)
+{
+
+    std::cout << text << std::endl;
+
+    switch (text[0])
+    {
+    case 'f':
+        argPtr->fileName = text.substr(1);
+        break;
+    
+    case 'b':
+        argPtr->shouldBuild = (text == "build");
+        break;
+    
+    case 'c':
+        argPtr->caching = (text == "cache");
+        break;
+    
+    case 'l':
+        argPtr->logging = (text == "loggs");
+        break;
+    
+    case 'h':
+        showHelp();
+        break;
+    
+    default:
+        break;
+    }
+}
+
 int main(int argc, char *argv[])
 {
-    std::string fileName = "build.txt";
-    std::string arguments;
-    bool shouldBuild = false;
-    bool caching = true;
-    bool logging = false;
+    commandArguments arg;
 
-    if(argc >= 2)
+    if(argc > 1)
     {
         for (int i = 1; i < argc; i++)
         {
@@ -33,41 +69,21 @@ int main(int argc, char *argv[])
 
             if(prefix[0] == '-'){
                 std::string text = argv[i];
-                text.erase(0, 2);
-                switch (prefix[1])
-                {
-                case 'f':
-                    fileName = text + ".txt";
-                    break;
+                text.erase(0, 1);
                 
-                case 'b':
-                    shouldBuild = (text == "uild");
-                    break;
-                
-                case 'c':
-                    caching = (text == "ache");
-                    break;
-                
-                case 'l':
-                    logging = (text == "oggs");
-                    break;
-                
-                case 'h':
-                    showHelp();
-                    return 0;
-                    break;
-                
-                default:
-                    break;
-                }
+                ParseArgument(&arg, text);
             }
 
         }
         
+    }else
+    {
+        showHelp();
+        return 0;
     }
 
     std::string text;
-    getTextFromFile(fileName, &text);
+    getTextFromFile(arg.fileName, &text);
 
     parseText(&text);
 
@@ -78,15 +94,15 @@ int main(int argc, char *argv[])
     makeCommand(fdata, &command, /*&files*/ &fdata);
 
 
-    if(logging){
+    if(arg.logging){
         printLogs();
     }
 
-    if(caching){
+    if(arg.caching){
         makeCache(&fdata);
     }
 
-    if(shouldBuild)
+    if(arg.shouldBuild)
     {
         system(command.c_str());
     }
