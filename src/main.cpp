@@ -29,7 +29,7 @@ void showHelp()
 void ParseArgument(commandArguments *argPtr, std::string text)
 {
 
-    std::cout << text << std::endl;
+    std::cout << text[0] << std::endl;
 
     switch (text[0])
     {
@@ -54,7 +54,9 @@ void ParseArgument(commandArguments *argPtr, std::string text)
         break;
     
     case 'd':
-        argPtr->path = text.substr(3) + '/';
+        std::cout << (text.substr(1, text.length() - 1) + '/') << std::endl;
+        argPtr->path = text.substr(1) + '/';
+        argPtr->path = (text.substr(1, text.length() - 1) + '/');
         break;
 
     default:
@@ -84,13 +86,15 @@ int main(int argc, char *argv[])
         
     }
 
+    std::cout << arg.path << std::endl;
+
     std::string text;
     getTextFromFile((arg.path + arg.fileName), &text);
 
     parseText(&text);
 
     std::vector<data> fdata;
-    lex(&text, &fdata);
+    lex(&text, &fdata, arg.path);
 
     std::string command;
     makeCommand(fdata, &command, /*&files*/ &fdata);

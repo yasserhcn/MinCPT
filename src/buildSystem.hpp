@@ -53,10 +53,10 @@ struct data
 int checkArgument(int type, std::string text, std::vector<data> *vecData, int index = -1);
 
 // lexer for converting sting into data
-void lex(std::string *text, std::vector<data> *dataIn);
+void lex(std::string *text, std::vector<data> *dataIn, std::string path = "");
 
 // returns the command string of the argument/parameter
-std::string getCommand(uint16_t type,  std::vector<data> *vecData, int index = 0);
+std::string getCommand(uint16_t type,  std::vector<data> *vecData, int index = 0, std::string extraPath = "");
 
 // turn the data into command string and syscall
-void makeCommand(std::vector<data> dataIn, std::string *command, std::vector<data> *vecData);
+void makeCommand(std::vector<data> dataIn, std::string *command, std::vector<data> *vecData, std::string path = "");

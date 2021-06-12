@@ -103,7 +103,7 @@ int checkArgument(int type, std::string text,std::vector<data> *vecData, int ind
 }
 
 
-void lex(std::string *text, std::vector<data> *vecData)
+void lex(std::string *text, std::vector<data> *vecData, std::string path)
 {
     int amountOfLines = 0;
     int occurence = 0;
@@ -148,12 +148,17 @@ void lex(std::string *text, std::vector<data> *vecData)
             uint16_t parType = checkArgument(PARAMETER_TYPE, parameter, vecData, i);
             if(parType){
                 vecData->at(i).par = parType;
-                vecData->at(i).parName = parameter;
+                if(path != "" && vecData->at(i).arg != EXTRA_ARGUMENTS){
+                    vecData->at(i).parName = path + parameter;
+                }else{
+                    vecData->at(i).parName = parameter;
+                }
+                
             }
     }
 }
 
-std::string getCommand(uint16_t type, std::vector<data> *vecData, int index)
+std::string getCommand(uint16_t type, std::vector<data> *vecData, int index, std::string extraPath)
 {
     switch (type)
     {
@@ -179,32 +184,32 @@ std::string getCommand(uint16_t type, std::vector<data> *vecData, int index)
     
     
     case FILE_PARAMETER:
-        logText("file found : ", ((*vecData)[index].parName).c_str());
-        return (*vecData)[index].parName;
+        logText("file found : ", (extraPath + (*vecData)[index].parName).c_str());
+        return (extraPath + (*vecData)[index].parName);
         break;
     
     case INCLUDE_PARAMETER:
-        logText("include path found : ", ((*vecData)[index].parName).c_str());
-        return ("-I\"" + (*vecData)[index].parName + "\"");
+        logText("include path found : ", (extraPath + (*vecData)[index].parName).c_str());
+        return ("-I\"" + extraPath + (*vecData)[index].parName + "\"");
         break;
     
     case LIBRARY_FILE_PARAMETER:
-        logText("library file found : ", ((*vecData)[index].parName).c_str());
+        logText("library file found : ", (extraPath + (*vecData)[index].parName).c_str());
         return ("-l\"" + (*vecData)[index].parName + "\"");
         break;
 
     case LIBRARY_PATH_PARAMETER:
-        logText("library file path found : ", ((*vecData)[index].parName).c_str());
-        return ("-L\"" + (*vecData)[index].parName + "\"");
+        logText("library file path found : ", (extraPath + (*vecData)[index].parName).c_str());
+        return ("-L\"" + extraPath + (*vecData)[index].parName + "\"");
         break;
     
     case OUTPUT_PARAMETER:
-        logText("output file found : ", ((*vecData)[index].parName).c_str());
-        return ("-o " + (*vecData)[index].parName);
+        logText("output file found : ", (extraPath + (*vecData)[index].parName).c_str());
+        return ("-o " + extraPath + (*vecData)[index].parName);
         break;
     
     case EXTRA_ARGS_PARAMETER:
-        logText("extra arguments detected : ", ((*vecData)[index].parName).c_str());
+        logText("extra arguments detected : ", (extraPath + (*vecData)[index].parName).c_str());
         return (*vecData)[index].parName;
         break;
 
@@ -215,7 +220,7 @@ std::string getCommand(uint16_t type, std::vector<data> *vecData, int index)
     }
 }
 
-void makeCommand(std::vector<data> dataIn, std::string *command, std::vector<data> *vecData)
+void makeCommand(std::vector<data> dataIn, std::string *command, std::vector<data> *vecData, std::string path)
 {
     *command = "";
     bool lang = false;
@@ -236,7 +241,7 @@ void makeCommand(std::vector<data> dataIn, std::string *command, std::vector<dat
         }
 
         // add command to the string
-        *command += getCommand((dataIn)[i].par, vecData, i);
+        *command += getCommand((dataIn)[i].par, vecData, i, path);
         *command += " ";
         
     }
