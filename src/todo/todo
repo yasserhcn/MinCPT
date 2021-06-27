@@ -1,9 +1,4 @@
-priority:
-	- paths should work on command line
-	- direcotry option
-
 optional:
-	- cmake file for building *CHECK*
 	- vsc plugin *IN PROGRESS*
 	- general improvement *IN PROGRESS*
 	
