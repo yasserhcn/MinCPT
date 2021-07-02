@@ -194,8 +194,8 @@ std::string getCommand(uint16_t type, std::vector<data> *vecData, int index, std
         break;
     
     case LIBRARY_FILE_PARAMETER:
-        logText("library file found : ", ((*vecData)[index].parName).c_str());
-        return ("-l\"" + (*vecData)[index].parName + "\"");
+        logText("library file found : ", (extraPath + (*vecData)[index].parName).c_str());
+        return ("-l\"" + extraPath + (*vecData)[index].parName + "\"");
         break;
 
     case LIBRARY_PATH_PARAMETER:
