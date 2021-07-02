@@ -12,6 +12,7 @@ struct commandArguments
     bool shouldBuild = false;
     bool caching = true;
     bool logging = false;
+    bool help = false;
 };
 
 void showHelp()
@@ -20,7 +21,8 @@ void showHelp()
                                  "-ffile.txt : specifies the file containing the build instructions\n"
                                  "-build : automatically builds the files specified in the build text file\n"
                                  "-cache : enables chaching for use with cptmake\n"
-                                 "-loggs : enables loggs to be printed to screen\n";
+                                 "-loggs : enables loggs to be printed to screen\n"
+                                 "-d\"dir\" : specify where to find the build file\n";
     
     std::cout<<helpText;
 
@@ -49,6 +51,7 @@ void ParseArgument(commandArguments *argPtr, std::string text)
     
     case 'h':
         showHelp();
+        argPtr->help = true;
         break;
     
     case 'd':
@@ -81,6 +84,10 @@ int main(int argc, char *argv[])
 
         }
         
+    }
+
+    if(arg.help){
+        return 0;
     }
 
     std::string text;
