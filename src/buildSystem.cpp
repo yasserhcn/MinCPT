@@ -194,7 +194,7 @@ std::string getCommand(uint16_t type, std::vector<data> *vecData, int index, std
         break;
     
     case LIBRARY_FILE_PARAMETER:
-        logText("library file found : ", (extraPath + (*vecData)[index].parName).c_str());
+        logText("library file found : ", ((*vecData)[index].parName).c_str());
         return ("-l\"" + (*vecData)[index].parName + "\"");
         break;
 
@@ -209,7 +209,7 @@ std::string getCommand(uint16_t type, std::vector<data> *vecData, int index, std
         break;
     
     case EXTRA_ARGS_PARAMETER:
-        logText("extra arguments detected : ", (extraPath + (*vecData)[index].parName).c_str());
+        logText("extra arguments detected : ", ((*vecData)[index].parName).c_str());
         return (*vecData)[index].parName;
         break;
 
