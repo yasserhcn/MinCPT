@@ -68,12 +68,13 @@ the arguments are :<br>
 - `-build` : builds the project right away
 - `-cache` : enables caching
 - `-loggs` : enables displaying loggs to the screen
-- `-dir"../place/to/file/"` : specifies the folder containing the build file
+- `-d"../place/to/file/"` : specifies the folder containing the build file
 - `-fname` : sets the file name as `name.txt`<br> note : the `.txt` extension is automatically added
 
 **important notes**:<br>
 - the program doesn't build the project if `-build` isn't used
 - the filename shouldn't have a space between it and `-f` and the extension shouldn't be used
+- when using the `-d` argument, the filenames, library paths, and include paths will be relative to the path you used
 
 ## executing
 when executing the program, it will create a log file called `Log.txt` in the directory the executable is located at, this file will only work for the latest time you executed it, when running it a second time the text inside of it will be overwritten
