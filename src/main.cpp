@@ -29,8 +29,6 @@ void showHelp()
 void ParseArgument(commandArguments *argPtr, std::string text)
 {
 
-    std::cout << text[0] << std::endl;
-
     switch (text[0])
     {
     case 'f':
@@ -54,7 +52,6 @@ void ParseArgument(commandArguments *argPtr, std::string text)
         break;
     
     case 'd':
-        std::cout << (text.substr(1, text.length() - 1) + '/') << std::endl;
         argPtr->path = text.substr(1) + '/';
         argPtr->path = (text.substr(1, text.length() - 1) + '/');
         break;
@@ -85,8 +82,6 @@ int main(int argc, char *argv[])
         }
         
     }
-
-    std::cout << arg.path << std::endl;
 
     std::string text;
     getTextFromFile((arg.path + arg.fileName), &text);
