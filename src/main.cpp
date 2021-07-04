@@ -90,6 +90,8 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+    //TODO: loop around every project and build it
+
     std::string text;
     getTextFromFile((arg.path + arg.fileName), &text);
 
