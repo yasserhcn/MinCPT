@@ -30,3 +30,7 @@ responsible for creating and reding cache files generated from the data vector f
 - *convertData* : not currently used, supposed to convert data from ints to strings or the other way around
 - *makeCache* : creates the cache file and writes data to it from the data vector
 - *getCache* : gets cache from the cache file and puts it in the data vector
+  
+## projects
+responsible for preparsing the text files and separating them into multiple projects
+**functions**

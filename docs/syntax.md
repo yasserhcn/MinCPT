@@ -6,7 +6,7 @@ on the other hand the parameter is case sensitive if the inputted text is a path
 
 each line needs to have **only one** argument and parameter
 
-## choosing the language and version :
+## the syntax :
 - choosing the language :<br>
     to choose the language between C++ and C you need to use the **language** argument with the language name<br>
     ``` language : CPP ```<br>
@@ -61,6 +61,19 @@ each line needs to have **only one** argument and parameter
 
 - comments :<br>
     comments are specified by adding `#` at the beginning of the line
+
+## multiple projects
+you can have multiple projects by using the PROJECT keyword followed by the name of your project, fopr example:
+```
+PROJECT one
+language : cpp
+version : cpp17
+file : src/main.cpp
+
+PROJECT two
+language : c
+file : src/two/main.c
+```
 
 ## running the built file
 assuming that the built file is `CPT.exe`, you should open command prompt or the terminal and run the executable with the arguments that you want<br>
