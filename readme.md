@@ -8,7 +8,7 @@ this build tool is made to be easy to use and easy to learn
   
 ## how to build
 ### using gcc directly
-to build the main file you can use g++ using :  `g++ src/main.cpp src/fileHandling.cpp src/buildSystem.cpp src/strings.cpp src/logging.cpp src/caching/cache.cpp -std=c++11 -o build/minCPT.exe `
+to build the main file you can use g++ using :  `g++ src/main.cpp src/fileHandling.cpp src/buildSystem.cpp src/strings.cpp src/logging.cpp src/caching/cache.cpp src/projects/parseProj.cpp -std=c++11 -o build/minCPT.exe `
 
 and to use the caching file you can use : `g++ src/caching/buildCache.cpp src/caching/cache.cpp src/buildSystem.cpp src/strings.cpp src/logging.cpp -std=c++11 -o build/cptmake.exe`
 
