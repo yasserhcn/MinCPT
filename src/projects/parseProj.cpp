@@ -44,5 +44,21 @@ int getProjectOcc(std::string text, int occurence)
 
 std::string getProjectText(std::string text, int num)
 {
+    int begin = getProjectOcc(text, num);
+    int end = getProjectOcc(text, num + 1);
+    if(end == -1)
+    {
+        end = text.length() - 1;
+    }else
+    {
+        end -= 7;
+        while (text[end] != '\n' && begin != text.length()-1)
+        {
+            end--;
+            std::cout << end << std::endl;
+        }
+    }
+
+    std::cout<<text.substr(begin, end - begin)<<std::endl;
     
 }
