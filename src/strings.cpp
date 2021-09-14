@@ -1,4 +1,4 @@
-#include "strings.hpp"
+#include <strings.hpp>
 
 int getCharIndex(std::string text, char character, uint16_t occurence)
 {

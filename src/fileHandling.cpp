@@ -1,6 +1,6 @@
-#include "fileHandling.hpp"
-#include "strings.hpp"
-#include "logging.hpp"
+#include <fileHandling.hpp>
+#include <strings.hpp>
+#include <logging.hpp>
 
 void getTextFromFile(std::string fileName, std::string *text)
 {

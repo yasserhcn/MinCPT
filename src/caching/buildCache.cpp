@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
-#include "cache.hpp"
-#include "../buildSystem.hpp"
+#include <cache.hpp>
+#include <buildSystem.hpp>
 
 int main(int argc, char *argv[])
 {
