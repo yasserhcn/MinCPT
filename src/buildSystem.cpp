@@ -1,5 +1,5 @@
-#include "buildSystem.hpp"
-#include "strings.hpp"
+#include <buildSystem.hpp>
+#include <strings.hpp>
 
 
 int checkArgument(int type, std::string text,std::vector<data> *vecData, int index)

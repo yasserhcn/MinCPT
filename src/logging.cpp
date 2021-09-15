@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "logging.hpp"
+#include <logging.hpp>
 
 void logText(const char *logType, const char *text)
 {

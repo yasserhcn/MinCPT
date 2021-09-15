@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
-#include "fileHandling.hpp"
-#include "buildSystem.hpp"
-#include "caching/cache.hpp"
+#include <fileHandling.hpp>
+#include <buildSystem.hpp>
+#include <cache.hpp>
 
 struct commandArguments
 {

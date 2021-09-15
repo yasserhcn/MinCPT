@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../buildSystem.hpp"
-#include "../strings.hpp"
+#include <buildSystem.hpp>
+#include <strings.hpp>
 #include <vector>
 #include <fstream>
 #include <string>
