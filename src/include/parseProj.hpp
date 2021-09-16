@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
-#include "../strings.hpp"
+#include <strings.hpp>
 
 int getProjectOcc(std::string text, int occurence);
 
