@@ -60,10 +60,10 @@ each line needs to have **only one** argument and parameter
     we'll have the following line : `args : "-mconsole -m32"`<br>
 
 - comments :<br>
-    comments are specified by adding `#` at the beginning of the line
+    comments are specified by adding `#` at the beginning of the comment
 
 ## multiple projects
-you can have multiple projects by using the PROJECT keyword followed by the name of your project, fopr example:
+you can have multiple projects by using the PROJECT keyword followed by the name of your project, for example:
 ```
 PROJECT one
 language : cpp
@@ -74,6 +74,7 @@ PROJECT two
 language : c
 file : src/two/main.c
 ```
+**note**: the keyword `PROJECT` must be in uppercase otherwise you'll get a syntax error
 
 ## running the built file
 assuming that the built file is `CPT.exe`, you should open command prompt or the terminal and run the executable with the arguments that you want<br>
