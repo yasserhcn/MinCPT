@@ -55,10 +55,9 @@ std::string getProjectText(std::string text, int num)
         while (text[end] != '\n' && begin != text.length()-1)
         {
             end--;
-            std::cout << end << std::endl;
         }
     }
-
-    std::cout<<text.substr(begin, end - begin)<<std::endl;
     
+    return text.substr(begin, end - begin + 1);
+
 }
