@@ -125,8 +125,6 @@ void lex(std::string *text, std::vector<data> *vecData, std::string path)
     }
     amountOfLines--;
     lines.pop_back();
-
-    DEBUG_LOG(*text);
     
     // a loop that doesn't exit till you reach the end of the string
     for (uint16_t i = 0; i < lines.size(); i++)
