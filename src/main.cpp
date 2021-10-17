@@ -3,6 +3,7 @@
 #include <fileHandling.hpp>
 #include <buildSystem.hpp>
 #include <cache.hpp>
+#include <parseProj.hpp>
 
 struct commandArguments
 {
@@ -90,32 +91,42 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+    //TODO: loop around every project and build it
+
     std::string text;
     getTextFromFile((arg.path + arg.fileName), &text);
 
-    parseText(&text);
-
-    std::vector<data> fdata;
-    lex(&text, &fdata, arg.path);
-
-    std::string command;
-    makeCommand(fdata, &command, /*&files*/ &fdata);
-
-
-    if(arg.logging){
-        printLogs();
-    }
-
-    if(arg.caching){
-        makeCache(&fdata);
-    }
-
-    if(arg.shouldBuild)
+    int projectsNum = getNumProjects(text);
+    for (int i = 0; i < projectsNum; i++)
     {
-        system(command.c_str());
-    }
+        std::string projText;
 
-    std::cout << command << std::endl;
-    
+        projText = getProjectText(text, i);
+        
+        parseText(&projText);
+
+        std::vector<data> fdata;
+        lex(&projText, &fdata, arg.path);
+
+        std::string command;
+        makeCommand(fdata, &command, /*&files*/ &fdata);
+
+        if(arg.logging){
+            printLogs();
+        }
+
+        if(arg.caching){
+            makeCache(&fdata);
+        }
+
+        if(arg.shouldBuild)
+        {
+            system(command.c_str());
+        }
+
+        std::cout << command << std::endl;
+
+
+    }
     return 0;
 }

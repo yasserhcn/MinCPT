@@ -38,6 +38,9 @@
 #define FILE_PARAMETER 200
 #define EXTRA_ARGS_PARAMETER 210
 
+#define SHOW_DEBUG 1
+#define DEBUG_LOG(a) if (SHOW_DEBUG == 1){ std::cout<<a<<std::endl; }
+
 // the data struct for the vector
 struct data
 {

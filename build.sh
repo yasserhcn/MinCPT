@@ -1,7 +1,7 @@
 mkdir build
 
 echo "building minCPT file..."
-g++ src/main.cpp src/fileHandling.cpp src/buildSystem.cpp src/strings.cpp src/logging.cpp -o build/minCPT.exe src/caching/cache.cpp -std=c++11 -I"./src/include"
+g++ src/main.cpp src/fileHandling.cpp src/buildSystem.cpp src/strings.cpp src/logging.cpp -o build/minCPT.exe src/caching/cache.cpp src/projects/parseProj.cpp -std=c++11 -I"./src/include"
 echo "done building"
 
 echo "building cptmake file..."

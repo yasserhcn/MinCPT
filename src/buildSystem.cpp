@@ -39,6 +39,7 @@ int checkArgument(int type, std::string text,std::vector<data> *vecData, int ind
 
         switch ((*vecData)[index].arg)
         {
+            //tODO: static offset between arguments and parameters to be changed without switch
         case INCLUDE_ARGUMENT:
             return INCLUDE_PARAMETER;
             break;
@@ -65,29 +66,35 @@ int checkArgument(int type, std::string text,std::vector<data> *vecData, int ind
         }
 
         // c++ language version
-        if(text.substr(0,3) == "cpp")
+        if(text.substr(0,1) == "c" || text.substr(0,1) == "C")
         {
             found = true;
-            if (text.length() == 3){
-                return LANGUAGE_CPP;
-            }else
-            if(text.substr(3, 2) == "20"){
-                return VERSION_CPP20;
-            }else
-            if(text.substr(3, 2) == "17"){
-                return VERSION_CPP17;
-            }else
-            if(text.substr(3, 2) == "14"){
-                return VERSION_CPP14;
-            }else
-            if(text.substr(3, 2) == "11"){
-                return VERSION_CPP11;
-            }else
-            if(text.substr(3, 2) == "03"){
-                return VERSION_CPP03;
-            }else
-            if(text.substr(3, 2) == "98"){
-                return VERSION_CPP98;
+            if(text.length() == 1){
+                return LANGUAGE_C;
+            }else 
+            if (text.substr(0,3) == "cpp" || text.substr(0,3) == "CPP"){
+
+                if (text.length() == 3){
+                    return LANGUAGE_CPP;
+                }else
+                if(text.substr(3, 2) == "20"){
+                    return VERSION_CPP20;
+                }else
+                if(text.substr(3, 2) == "17"){
+                    return VERSION_CPP17;
+                }else
+                if(text.substr(3, 2) == "14"){
+                    return VERSION_CPP14;
+                }else
+                if(text.substr(3, 2) == "11"){
+                    return VERSION_CPP11;
+                }else
+                if(text.substr(3, 2) == "03"){
+                    return VERSION_CPP03;
+                }else
+                if(text.substr(3, 2) == "98"){
+                    return VERSION_CPP98;
+                }
             }
         }
 
@@ -118,9 +125,11 @@ void lex(std::string *text, std::vector<data> *vecData, std::string path)
     }
     amountOfLines--;
     lines.pop_back();
+
+    DEBUG_LOG(*text);
     
     // a loop that doesn't exit till you reach the end of the string
-    for (uint16_t i = 0; i < amountOfLines; i++)
+    for (uint16_t i = 0; i < lines.size(); i++)
     {
         // get a line till you reach an endline character
         std::string currentLine = text->substr(i == 0 ? 0 : lines[i - 1] + 1, lines[i] - lines[i - 1]);
@@ -236,7 +245,7 @@ void makeCommand(std::vector<data> dataIn, std::string *command, std::vector<dat
         }else if((dataIn)[0].par == LANGUAGE_C && lang == false)
         {
             command->insert(0, "gcc ");
-            logText("language detected successfully", "C");
+            logText("language detected successfully ", "C");
             lang = true;
         }
 
