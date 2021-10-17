@@ -33,4 +33,7 @@ responsible for creating and reding cache files generated from the data vector f
   
 ## projects
 responsible for preparsing the text files and separating them into multiple projects
-**functions**
+**functions:**
+- *getProjectOcc* : returns the index of the specified project occurence
+- *getNumProjects* : returns the amount of projects in the text
+- *getProjectText* : returns the text of a project from full text and the occurence
