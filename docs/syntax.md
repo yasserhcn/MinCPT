@@ -75,6 +75,7 @@ language : c
 file : src/two/main.c
 ```
 **note**: the keyword `PROJECT` must be in uppercase otherwise you'll get a syntax error
+**note 2**: you don't need a colon between the project name and the argument
 
 ## running the built file
 assuming that the built file is `CPT.exe`, you should open command prompt or the terminal and run the executable with the arguments that you want<br>
