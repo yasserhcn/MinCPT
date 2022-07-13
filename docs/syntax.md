@@ -85,6 +85,8 @@ the arguments are :<br>
 - `-loggs` : enables displaying loggs to the screen
 - `-d"../place/to/file/"` : specifies the folder containing the build file
 - `-fname` : sets the file name as `name.txt`<br> note : the `.txt` extension is automatically added
+- `-bash` : output the build command to a bash file
+- `-oname` : outputs the build command to a file under the name `name.bash` if the bash argument is specified
 
 **important notes**:<br>
 - the program doesn't build the project if `-build` isn't used

@@ -1,3 +1,5 @@
+- add ability to output build command to a bash/shell file
+
 optional:
 	- vsc plugin *IN PROGRESS*
 	- general improvement *IN PROGRESS*

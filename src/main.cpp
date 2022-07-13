@@ -10,10 +10,12 @@ struct commandArguments
     std::string fileName = "build.txt";
     std::string arguments;
     std::string path = "./";
+    std::string bashFileName = "build.bash";
     bool shouldBuild = false;
     bool caching = true;
     bool logging = false;
     bool help = false;
+    bool outputToBash = false;
 };
 
 void showHelp()
@@ -39,8 +41,16 @@ void ParseArgument(commandArguments *argPtr, std::string text)
         break;
     
     case 'b':
-        argPtr->shouldBuild = (text == "build");
+        if(text == "build"){
+            argPtr->shouldBuild = true;
+        }
+        if(text == "bash"){
+            argPtr->outputToBash = true;
+        }
         break;
+
+    case 'o':
+        argPtr->bashFileName = text.substr(1);
     
     case 'c':
         argPtr->caching = (text == "cache");
@@ -90,8 +100,6 @@ int main(int argc, char *argv[])
     if(arg.help){
         return 0;
     }
-
-    //TODO: loop around every project and build it
 
     std::string text;
     getTextFromFile((arg.path + arg.fileName), &text);
